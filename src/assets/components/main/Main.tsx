@@ -67,17 +67,20 @@ export class Main extends Component<object, State> {
 
   render(): JSX.Element {
     return (
-      <>
+      <main>
         <Search handleSearch={this.handleSearchRequest} />
         {this.state.isLoading ? (
-          <img
-            src="./loader.gif"
-            alt="Loader image"
-          />
+          <div className="loader">
+            <img
+              src="./loader.gif"
+              alt="Loader image"
+            />
+            loading...
+          </div>
         ) : (
           <Results result={this.state.searchResult} />
         )}
-      </>
+      </main>
     );
   }
 }
