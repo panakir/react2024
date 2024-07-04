@@ -10,7 +10,11 @@ export class CharacterCard extends Component<Props> {
   render(): JSX.Element {
     return (
       <div className={styles.card}>
-        This is CharacterCard component {this.props.character.name}
+        <p className={styles.text}>{this.props.character.name}</p>
+        <p className={styles.text}>gender: {this.props.character.gender}</p>
+        <p className={styles.text}>
+          birth year: {this.props.character.birth_year}
+        </p>
       </div>
     );
   }
