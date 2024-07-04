@@ -1,5 +1,5 @@
 import { Component } from "react";
-import "./results.module.scss";
+import styles from "./results.module.scss";
 import { Character } from "../../share/types";
 import { CharacterCard } from "../characterCard/CharacterCard";
 
@@ -10,7 +10,7 @@ type Props = {
 export class Results extends Component<Props> {
   render(): JSX.Element {
     return (
-      <div>
+      <div className={styles.result}>
         {this.props.result.map((el, ind) => (
           <CharacterCard
             key={ind}

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import "./search.module.scss";
+import styles from "./search.module.scss";
 import { ErrorButton } from "../errorBoundary/ErrorButton";
 
 type Props = {
@@ -17,6 +17,7 @@ export class Search extends Component<Props, State> {
       searchTerm: localStorage.getItem("searchTerm") || "",
     };
   }
+
   handleInputChange = (event: { target: { value: string } }): void => {
     localStorage.setItem("searchTerm", event.target.value);
     this.setState({
@@ -30,8 +31,9 @@ export class Search extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <>
+      <div className={styles.search}>
         <input
+          className={styles.input}
           type="text"
           name="searchField"
           id="searchField"
@@ -39,14 +41,16 @@ export class Search extends Component<Props, State> {
           placeholder="Please, type your request here"
           onChange={this.handleInputChange}
         />
-        <button
-          type="button"
-          onClick={this.handleSearchButton}
-        >
-          search
-        </button>
-        <ErrorButton />
-      </>
+        <div className={styles.buttons}>
+          <button
+            type="button"
+            onClick={this.handleSearchButton}
+          >
+            search
+          </button>
+          <ErrorButton />
+        </div>
+      </div>
     );
   }
 }

@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: monospace;
 }
 
 #root {
@@ -10,10 +11,19 @@ body {
 button,
 input {
   outline: none;
-  border: none;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
 button {
   cursor: pointer;
   background-color: transparent;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
