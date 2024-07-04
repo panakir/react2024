@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  font-family: monospace;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input {
+  outline: none;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}

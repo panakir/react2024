@@ -1,0 +1,19 @@
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 1em;
+}
+
+.input {
+  font-family: inherit;
+  flex: 1 0 auto;
+  min-width: 45vw;
+  padding: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1em;
+}

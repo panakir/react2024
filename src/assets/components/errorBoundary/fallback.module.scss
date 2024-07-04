@@ -1,0 +1,16 @@
+.fallback {
+  height: 100vh;
+  background: url("./error-page-bg.jpg") center / cover no-repeat;
+  color: white;
+  padding-left: 5em;
+}
+
+.title {
+  font-size: 5em;
+  max-width: 30vw;
+}
+
+.text {
+  max-width: 35vw;
+  font-size: 2em;
+}
