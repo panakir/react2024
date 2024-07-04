@@ -1,5 +1,6 @@
 import { Component } from "react";
 import "./search.module.scss";
+import { ErrorButton } from "../errorBoundary/ErrorButton";
 
 type Props = {
   handleSearch: () => void;
@@ -44,6 +45,7 @@ export class Search extends Component<Props, State> {
         >
           search
         </button>
+        <ErrorButton />
       </>
     );
   }
