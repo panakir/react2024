@@ -1,0 +1,15 @@
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input {
+  outline: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
