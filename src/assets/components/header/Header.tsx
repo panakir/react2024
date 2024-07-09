@@ -1,11 +1,9 @@
-import { Component } from "react";
+import { ReactNode } from "react";
 
-export class Header extends Component {
-  render(): JSX.Element {
-    return (
-      <header>
-        <h1>React Course by Rolling Scopes School</h1>
-      </header>
-    );
-  }
-}
+export const Header = (): ReactNode => {
+  return (
+    <header>
+      <h1>React Course by Rolling Scopes School</h1>
+    </header>
+  );
+};
