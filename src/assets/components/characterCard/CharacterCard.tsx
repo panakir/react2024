@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styles from "./characterCard.module.scss";
-import { Character } from "../../share/types";
+import { Character } from "../../shared/types";
 
 type Props = {
   character: Character;

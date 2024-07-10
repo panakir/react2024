@@ -1,8 +1,8 @@
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { Search } from "../search/Search";
 import { Results } from "../results/Results";
-import { Character } from "../../share/types";
-import { getAllCharacters, getFilteredCharacters } from "../../share/api";
+import { Character } from "../../shared/types";
+import { getAllCharacters, getFilteredCharacters } from "../../shared/api";
 
 export const Main = (): ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
