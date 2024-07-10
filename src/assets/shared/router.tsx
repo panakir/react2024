@@ -7,6 +7,7 @@ import { Fallback } from "../components/errorBoundary/Fallback";
 import { App } from "../components/app/App";
 import { getCharacter } from "./api";
 import { Details } from "../components/details/Details";
+import { NotFound } from "../components/not-found/NotFound";
 
 const characterLoader: LoaderFunction = async ({
   params,
@@ -29,5 +30,9 @@ export const router = createBrowserRouter([
         index: true,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
