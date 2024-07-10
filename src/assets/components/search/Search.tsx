@@ -7,7 +7,9 @@ type Props = {
 };
 
 export const Search = ({ handleSearch }: Props): ReactNode => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(
+    localStorage.getItem("searchTerm") || ""
+  );
 
   const handleInputChange = (event: { target: { value: string } }): void => {
     setSearchTerm(event.target.value);
