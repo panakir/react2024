@@ -24,3 +24,12 @@ export const getAllCharacters = async (): Promise<Character[]> => {
 
   return response;
 };
+
+export const getCharacter = async (id: string): Promise<Character> => {
+  const response = await fetch(BASE_URL + id)
+    .then((res) => res.json())
+    .catch((error) => {
+      throw new Error(error.message);
+    });
+  return response;
+};

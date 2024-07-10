@@ -5,4 +5,5 @@ export type Character = {
   mass: string;
   birth_year: string;
   url: string;
+  image?: string;
 };
