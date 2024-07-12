@@ -5,16 +5,16 @@ import {
 } from "react-router-dom";
 import { Fallback } from "../components/errorBoundary/Fallback";
 import { App } from "../components/app/App";
-import { getCharacter } from "./api";
-import { Details } from "../components/details/Details";
 import { NotFound } from "../components/not-found/NotFound";
+import { Details } from "../components/details/Details";
+import { getCharacter } from "./api";
 
-const characterLoader: LoaderFunction = async ({
+const loaderDetails: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
   const { id } = params;
-  const character = id && (await getCharacter(id));
-  return character;
+  const response = id && (await getCharacter(id));
+  return response;
 };
 
 export const router = createBrowserRouter([
@@ -22,12 +22,15 @@ export const router = createBrowserRouter([
     path: "/",
     element: <App />,
     errorElement: <Fallback />,
+  },
+  {
+    path: "/page/:pageId",
+    element: <App />,
     children: [
       {
         path: "details/:id",
-        loader: characterLoader,
         element: <Details />,
-        index: true,
+        loader: loaderDetails,
       },
     ],
   },

@@ -4,12 +4,14 @@ import { Results } from "../results/Results";
 import { Character } from "../../shared/types";
 import { getAllCharacters, getFilteredCharacters } from "../../shared/api";
 import { Pagination } from "../pagination/Pagination";
+import { useNavigate } from "react-router-dom";
 
 export const Main = (): ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [qtyCharacters, setQtyCharacters] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const handleSearchRequest = useCallback(async (): Promise<void> => {
     setIsLoading(true);
@@ -24,7 +26,7 @@ export const Main = (): ReactNode => {
       setQtyCharacters(filteredCharacters.count);
       setIsLoading(false);
     } else {
-      const characters = await getAllCharacters(currentPage);
+      const characters = await getAllCharacters(`${currentPage}`);
       setQtyCharacters(characters.count);
       setSearchResult(characters.results);
       setIsLoading(false);
@@ -36,13 +38,16 @@ export const Main = (): ReactNode => {
   }, [handleSearchRequest]);
 
   const handleSelectedPage = (page: number): void => {
+    navigate(`../page/${page}`, { replace: true });
     setCurrentPage(page);
   };
 
   const handlePreviousPage = (page: number): void => {
+    navigate(`../page/${page - 1}`, { replace: true });
     setCurrentPage(page - 1);
   };
   const handleNextPage = (page: number): void => {
+    navigate(`../page/${page + 1}`, { replace: true });
     setCurrentPage(page + 1);
   };
 
@@ -59,7 +64,7 @@ export const Main = (): ReactNode => {
       {isLoading ? (
         <div className="loader">
           <img
-            src="./loader.gif"
+            src="../loader.gif"
             alt="Loader image"
           />
           loading...

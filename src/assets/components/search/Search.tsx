@@ -1,12 +1,14 @@
 import { ReactNode, useState } from "react";
 import styles from "./search.module.scss";
 import { ErrorButton } from "../errorBoundary/ErrorButton";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   handleSearch: () => void;
 };
 
 export const Search = ({ handleSearch }: Props): ReactNode => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem("searchTerm") || ""
   );
@@ -17,6 +19,7 @@ export const Search = ({ handleSearch }: Props): ReactNode => {
 
   const handleSearchButton = (): void => {
     localStorage.setItem("searchTerm", searchTerm);
+    navigate("/", { replace: true });
     handleSearch();
   };
 

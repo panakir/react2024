@@ -15,9 +15,9 @@ export const getFilteredCharacters = async (
 };
 
 export const getAllCharacters = async (
-  page: number
+  page = "1"
 ): Promise<ResponseFromApi> => {
-  const response = await fetch(`${BASE_URL}&page=${page}`)
+  const response = await fetch(`${BASE_URL}?page=${page}`)
     .then((res) => res.json())
     .catch((error) => {
       throw new Error(error.message);

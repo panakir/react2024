@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  height: clamp(100%, 30vh, 100vh);
 }
 
 .title {
