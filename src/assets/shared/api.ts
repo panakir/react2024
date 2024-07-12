@@ -1,12 +1,12 @@
-import { Character } from "./types";
+import { Character, ResponseFromApi } from "./types";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getFilteredCharacters = async (
-  query: string
-): Promise<Character[]> => {
-  const response = await fetch(`${BASE_URL}?search=${query} `)
+  query: string,
+  page: number
+): Promise<ResponseFromApi> => {
+  const response = await fetch(`${BASE_URL}?search=${query}&page=${page}`)
     .then((res) => res.json())
-    .then((data) => data.results)
     .catch((error) => {
       throw new Error(error.message);
     });
@@ -14,10 +14,11 @@ export const getFilteredCharacters = async (
   return response;
 };
 
-export const getAllCharacters = async (): Promise<Character[]> => {
-  const response = await fetch(BASE_URL)
+export const getAllCharacters = async (
+  page: number
+): Promise<ResponseFromApi> => {
+  const response = await fetch(`${BASE_URL}&page=${page}`)
     .then((res) => res.json())
-    .then((data) => data.results)
     .catch((error) => {
       throw new Error(error.message);
     });

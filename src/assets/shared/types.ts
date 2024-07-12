@@ -7,3 +7,10 @@ export type Character = {
   url: string;
   image?: string;
 };
+
+export type ResponseFromApi = {
+  results: Character[];
+  count: number;
+  next: string | null;
+  previous: string | null;
+};
