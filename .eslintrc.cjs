@@ -24,7 +24,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "no-duplicate-imports": ["error", { includeExports: true }],
-    "max-lines-per-function": ["warn", { max: 40, skipBlankLines: true }],
     "no-empty": "error",
     "no-empty-function": "error",
     "no-undefined": "error",
@@ -36,6 +35,7 @@ module.exports = {
       },
     ],
     "require-await": "error",
-    "no-unused-vars": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
   },
 };
