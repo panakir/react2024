@@ -5,6 +5,7 @@ import { Character } from "../../shared/types";
 import { getAllCharacters, getFilteredCharacters } from "../../shared/api";
 import { Pagination } from "../pagination/Pagination";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../loader/Loader";
 
 export const Main = (): ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
@@ -61,17 +62,7 @@ export const Main = (): ReactNode => {
         handleNextPage={handleNextPage}
       />
       <Search handleSearch={handleSearchRequest} />
-      {isLoading ? (
-        <div className="loader">
-          <img
-            src="../loader.gif"
-            alt="Loader image"
-          />
-          loading...
-        </div>
-      ) : (
-        <Results result={searchResult} />
-      )}
+      {isLoading ? <Loader /> : <Results result={searchResult} />}
     </main>
   );
 };
