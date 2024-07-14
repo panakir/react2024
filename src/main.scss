@@ -6,13 +6,18 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   box-sizing: border-box;
   height: 100vh;
 }
 
+header,
+footer {
+  padding: 20px;
+}
+
 main {
   flex: 1 0 auto;
+  padding: 20px;
 }
 
 .loader {
@@ -39,8 +44,11 @@ button {
   text-transform: uppercase;
   transition: all 0.3s;
 
-  &:hover {
+  &:not(&:disabled):hover {
     background-color: black;
     color: white;
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 }

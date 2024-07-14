@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import React from "react";
 import { Fallback } from "./Fallback";
 
 type Props = {
@@ -10,7 +10,7 @@ interface State {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+export class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props),
       (this.state = {
@@ -22,7 +22,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true };
   }
 
-  render(): ReactNode {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return <Fallback />;
     }

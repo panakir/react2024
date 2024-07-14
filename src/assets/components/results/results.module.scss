@@ -1,6 +1,11 @@
 .result {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1em;
+  gap: 3em;
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1em;
+  }
 }
