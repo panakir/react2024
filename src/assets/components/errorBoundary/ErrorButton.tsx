@@ -1,6 +1,6 @@
-import { ReactNode, useState } from "react";
+import React, { useState } from "react";
 
-export const ErrorButton = (): ReactNode => {
+export const ErrorButton = (): React.ReactNode => {
   const [hasError, setHasError] = useState(false);
 
   const handlerErrorButton = (): void => {

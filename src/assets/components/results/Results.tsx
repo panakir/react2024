@@ -1,23 +1,22 @@
-import { ReactNode } from "react";
+import React from "react";
 import styles from "./results.module.scss";
 import { Character } from "../../shared/types";
 import { CharacterCard } from "../characterCard/CharacterCard";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 type Props = {
   result: Character[];
+  closeOutlet: () => void;
 };
 
-export const Results = ({ result }: Props): ReactNode => {
-  const navigate = useNavigate();
-  const params = useParams();
+export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
   const handleCloseOutlet = (): void => {
-    if (params.id) {
-      navigate("..");
-    }
+    closeOutlet();
   };
 
-  return (
+  return result.length === 0 ? (
+    <h2>There is no results... Try something else</h2>
+  ) : (
     <div className={styles.result}>
       <div
         className={styles.result__wrapper}

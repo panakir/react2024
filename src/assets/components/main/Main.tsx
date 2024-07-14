@@ -4,7 +4,7 @@ import { Results } from "../results/Results";
 import { Character } from "../../shared/types";
 import { getAllCharacters, getFilteredCharacters } from "../../shared/api";
 import { Pagination } from "../pagination/Pagination";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Loader } from "../loader/Loader";
 
 export const Main = (): ReactNode => {
@@ -13,16 +13,18 @@ export const Main = (): ReactNode => {
   const [qtyCharacters, setQtyCharacters] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const params = useParams();
 
   const handleSearchRequest = useCallback(async (): Promise<void> => {
     setIsLoading(true);
-    const query = localStorage.getItem("searchTerm");
+    const query = localStorage.getItem("searchTerm") ?? "";
 
     if (query) {
       const filteredCharacters = await getFilteredCharacters(
         query,
         currentPage
       );
+
       setSearchResult(filteredCharacters.results);
       setQtyCharacters(filteredCharacters.count);
       setIsLoading(false);
@@ -52,6 +54,12 @@ export const Main = (): ReactNode => {
     setCurrentPage(page + 1);
   };
 
+  const handleCloseOutlet = (): void => {
+    if (params.id) {
+      navigate(-1);
+    }
+  };
+
   return (
     <main>
       <Pagination
@@ -62,7 +70,14 @@ export const Main = (): ReactNode => {
         handleNextPage={handleNextPage}
       />
       <Search handleSearch={handleSearchRequest} />
-      {isLoading ? <Loader /> : <Results result={searchResult} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Results
+          result={searchResult}
+          closeOutlet={handleCloseOutlet}
+        />
+      )}
     </main>
   );
 };
