@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styles from "./characterCard.module.scss";
 import { Character } from "../../shared/types";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const getCharacterId = (url: string): string => {
   return id;
 };
 
-export const CharacterCard = (props: Props): React.ReactNode => {
+export const CharacterCard = (props: Props): ReactNode => {
   const id = getCharacterId(props.character.url);
   return (
     <Link

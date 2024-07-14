@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import React from "react";
 import styles from "./fallback.module.scss";
 
-export const Fallback = (): ReactNode => {
+export const Fallback = (): React.ReactNode => {
   return (
     <div className={styles.fallback}>
       <p className={styles.text}>

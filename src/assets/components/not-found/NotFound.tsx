@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import React from "react";
 import styles from "./not-found.module.scss";
 
-export const NotFound = (): ReactNode => {
+export const NotFound = (): React.ReactNode => {
   return (
     <div className={styles.notFound}>
       <h2 className={styles.title}> You lost your own way</h2>

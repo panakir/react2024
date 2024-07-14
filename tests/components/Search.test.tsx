@@ -29,4 +29,28 @@ describe("testing Search component", () => {
 
     expect(getLocalStorage()).toBe(value);
   });
+
+  it("should rendered with search button", () => {
+    render(<Search handleSearch={setLocalStorage} />);
+
+    const searchButton = screen.getByRole("button", { name: /search/i });
+
+    expect(searchButton).toBeInTheDocument();
+  });
+
+  it("should rendered with Throw Error button", () => {
+    render(<Search handleSearch={setLocalStorage} />);
+
+    const throwErrorButton = screen.getByRole("button", { name: /throw/i });
+
+    expect(throwErrorButton).toBeInTheDocument();
+  });
+
+  it("should rendered with search input area", () => {
+    render(<Search handleSearch={setLocalStorage} />);
+
+    const searchInput = screen.getByRole("textbox");
+
+    expect(searchInput).toBeInTheDocument();
+  });
 });

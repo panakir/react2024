@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Search } from "../search/Search";
 import { Results } from "../results/Results";
 import { Character } from "../../shared/types";
@@ -7,7 +7,7 @@ import { Pagination } from "../pagination/Pagination";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loader } from "../loader/Loader";
 
-export const Main = (): ReactNode => {
+export const Main = (): React.ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [qtyCharacters, setQtyCharacters] = useState(0);

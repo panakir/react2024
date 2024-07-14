@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import React from "react";
 
-export const Header = (): ReactNode => {
+export const Header = (): React.ReactNode => {
   return (
     <header>
       <h1>React Course by Rolling Scopes School</h1>

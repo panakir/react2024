@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Main } from "../main/Main";
 import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 import { Fallback } from "../errorBoundary/Fallback";
@@ -6,7 +6,7 @@ import { Header } from "../header/Header";
 import { Footer } from "../footer/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const App = (): ReactNode => {
+export const App = (): React.ReactNode => {
   const { pageId } = useParams();
   const navigate = useNavigate();
   const currentPage = parseInt(pageId ?? "1", 10);

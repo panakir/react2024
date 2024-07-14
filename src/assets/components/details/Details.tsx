@@ -8,7 +8,10 @@ export const Details = (): ReactNode => {
   const character = useLoaderData() as Character;
 
   return (
-    <div className={styles.details}>
+    <div
+      data-testid="details"
+      className={styles.details}
+    >
       <div className={styles.info}>
         <h2 className={styles.title}>{character.name}</h2>
         <p className={styles.text}>height: {character.height} </p>

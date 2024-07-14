@@ -17,7 +17,10 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
   return result.length === 0 ? (
     <h2>There is no results... Try something else</h2>
   ) : (
-    <div className={styles.result}>
+    <div
+      role="results"
+      className={styles.result}
+    >
       <div
         className={styles.result__wrapper}
         onClick={handleCloseOutlet}

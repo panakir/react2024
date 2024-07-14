@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React from "react";
 import styles from "./pagination.module.scss";
 
 const PAGE_LIMIT = 10;
@@ -16,7 +16,7 @@ const calculateQtyPaginationButton = (
   pageLimit: number
 ): number => Math.ceil(qtyCharacters / pageLimit);
 
-export const Pagination = (props: Props): ReactNode => {
+export const Pagination = (props: Props): React.ReactNode => {
   const {
     qtyCharacters,
     currentPage,

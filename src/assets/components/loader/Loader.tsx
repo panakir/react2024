@@ -1,13 +1,13 @@
-import { ReactNode } from "react";
+import React from "react";
 
-export const Loader = (): ReactNode => {
+export const Loader = (): React.ReactNode => {
   return (
     <div className="loader">
       <img
         src="../loader.gif"
         alt="Loader image"
       />
-      loading...
+      <p>loading...</p>
     </div>
   );
 };
