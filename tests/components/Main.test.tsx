@@ -13,11 +13,26 @@ describe("testing Main component", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("should rendered with Result components", () => {
+  it("should rendered with Result components", async () => {
     render(
       <BrowserRouter>
         <Main />
       </BrowserRouter>
     );
+
+    const results = await screen.findByRole("results");
+
+    expect(results).toBeInTheDocument();
+  });
+
+  it("should rendered with Pagination components", async () => {
+    render(
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    );
+    const pagination = await screen.findByRole("pagination");
+
+    expect(pagination).toBeInTheDocument();
   });
 });

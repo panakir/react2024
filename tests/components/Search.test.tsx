@@ -46,10 +46,12 @@ describe("testing Search component", () => {
     expect(throwErrorButton).toBeInTheDocument();
   });
 
-  it("should rendered with search input area", () => {
+  it("should rendered with search input area with default value", () => {
     render(<Search handleSearch={setLocalStorage} />);
 
-    const searchInput = screen.getByRole("textbox");
+    const searchInput = screen.getByDisplayValue(
+      localStorage.getItem("searchTerm") ?? ""
+    );
 
     expect(searchInput).toBeInTheDocument();
   });

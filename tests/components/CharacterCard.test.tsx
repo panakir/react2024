@@ -29,16 +29,15 @@ describe("testing Character card components", () => {
     expect(birth_year).toBeInTheDocument();
   });
 
-  it("should be redirect to Details", () => {
+  it("should be redirect to Details", async () => {
     render(
       <BrowserRouter>
         <CharacterCard character={mockedData} />
       </BrowserRouter>
     );
     const card = screen.getByRole("link");
-    const href = card.getAttribute("href");
-    userEvent.setup().click(card);
+    await userEvent.setup().click(card);
 
-    expect(href).toContain("details");
+    expect(window.location.href.includes("details")).toBeTruthy();
   });
 });

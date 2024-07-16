@@ -1,6 +1,6 @@
+import "./main.scss";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./main.scss";
 import { router } from "./assets/shared/router";
 import { RouterProvider } from "react-router-dom";
 

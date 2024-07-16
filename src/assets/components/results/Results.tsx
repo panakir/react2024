@@ -19,6 +19,7 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
   ) : (
     <div
       role="results"
+      data-testid="results"
       className={styles.result}
     >
       <div

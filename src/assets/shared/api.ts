@@ -7,8 +7,8 @@ export const getFilteredCharacters = async (
 ): Promise<ResponseFromApi> => {
   const response = await fetch(`${BASE_URL}?search=${query}&page=${page}`)
     .then((res) => res.json())
-    .catch((error) => {
-      throw new Error(error.message);
+    .catch(() => {
+      throw new Error("Request failed");
     });
 
   return response;
@@ -19,8 +19,8 @@ export const getAllCharacters = async (
 ): Promise<ResponseFromApi> => {
   const response = await fetch(`${BASE_URL}?page=${page}`)
     .then((res) => res.json())
-    .catch((error) => {
-      throw new Error(error.message);
+    .catch(() => {
+      throw new Error("Request failed");
     });
 
   return response;

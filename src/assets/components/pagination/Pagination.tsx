@@ -43,7 +43,10 @@ export const Pagination = (props: Props): React.ReactNode => {
   };
 
   return (
-    <div className={styles.pagination}>
+    <div
+      role="pagination"
+      className={styles.pagination}
+    >
       <button
         className={styles.button}
         onClick={() => handlePrevious(currentPage)}

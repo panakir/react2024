@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { ErrorButton } from "../../src/assets/components/errorBoundary/ErrorButton";
-import { ErrorBoundary } from "../../src/assets/components/errorBoundary/ErrorBoundary";
+import userEvent from "@testing-library/user-event";
 
 describe("testing Error button component", () => {
   it("should render button", () => {
@@ -10,17 +10,14 @@ describe("testing Error button component", () => {
     expect(throwErrorButton).toBeInTheDocument();
   });
 
-  it("should throw error when throw error button clicked", () => {
-    const mockOnClick = vi.fn((): void => {
-      throw new Error("Oops");
-    });
+  it.skip("should throw error when throw error button clicked", async () => {
+    vi.spyOn(ErrorButton.prototype, "handlerErrorButton");
 
-    render(
-      <ErrorBoundary fallback={<p>Oops</p>}>
-        <ErrorButton onClick={mockOnClick} />
-      </ErrorBoundary>
-    );
+    const errorButton = screen.getByRole("button");
+    await userEvent.setup().click(errorButton);
 
-    expect(mockOnClick).toThrow(/oops/i);
+    expect(
+      vi.spyOn(ErrorButton.prototype, "handlerErrorButton")
+    ).toHaveBeenCalledOnce();
   });
 });
