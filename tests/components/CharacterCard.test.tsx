@@ -2,8 +2,21 @@ import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { CharacterCard } from "../../src/components/characterCard/CharacterCard";
+import { useThemeContext } from "@/hooks/useThemeContext";
+import { Mock } from "vitest";
+
+vi.mock("@/hooks/useThemeContext", () => ({
+  useThemeContext: vi.fn(),
+}));
 
 describe("testing Character card components", () => {
+  beforeEach(() => {
+    const mockContext = {
+      theme: "dark",
+      setTheme: vi.fn(),
+    };
+    (useThemeContext as Mock).mockReturnValue(mockContext);
+  });
   const mockedData = {
     name: "Luke",
     gender: "male",

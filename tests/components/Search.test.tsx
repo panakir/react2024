@@ -1,10 +1,24 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, Mock, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Search } from "../../src/components/search/Search";
+import { useThemeContext } from "@/hooks/useThemeContext";
+
+vi.mock("@/hooks/useThemeContext", () => ({
+  useThemeContext: vi.fn(),
+}));
 
 describe("testing Search component", () => {
+  beforeEach(() => {
+    const mockContext = {
+      theme: "dark",
+      setTheme: vi.fn(),
+    };
+    (useThemeContext as Mock).mockReturnValue(mockContext);
+  });
+
   afterEach(() => localStorage.removeItem("searchTerm"));
+
   const user = userEvent;
   const value = "luke";
   const setLocalStorage = vi.fn(() =>
@@ -12,9 +26,8 @@ describe("testing Search component", () => {
   );
   const getLocalStorage = vi.fn(() => localStorage.getItem("searchTerm") ?? "");
 
-  render(<Search handleSearch={setLocalStorage} />);
-
   it("should save the entered value to the local storage when search button clicked", async () => {
+    render(<Search handleSearch={setLocalStorage} />);
     const button = screen.getByText(/search/i);
     await user.click(button);
     const checkLocalStorage = (): string =>
