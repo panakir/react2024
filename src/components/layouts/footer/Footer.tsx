@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./footer.module.scss";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 export const Footer = (): React.ReactNode => {
+  const { theme } = useThemeContext();
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${theme}`}>
       <div className={styles.info}>
         <a
           className={styles.link}

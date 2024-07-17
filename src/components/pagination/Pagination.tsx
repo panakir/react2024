@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./pagination.module.scss";
 import { Button } from "../elements/button/Button";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 const PAGE_LIMIT = 10;
 
@@ -18,6 +19,7 @@ const calculateQtyPaginationButton = (
 ): number => Math.ceil(qtyCharacters / pageLimit);
 
 export const Pagination = (props: Props): React.ReactNode => {
+  const { theme } = useThemeContext();
   const {
     qtyCharacters,
     currentPage,
@@ -45,8 +47,8 @@ export const Pagination = (props: Props): React.ReactNode => {
 
   return (
     <div
-      role="pagination"
-      className={styles.pagination}
+      data-testid="pagination"
+      className={`${styles.pagination} ${theme}`}
     >
       <Button
         textContent="<"

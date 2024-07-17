@@ -6,8 +6,10 @@ import { Loader } from "../../loader/Loader";
 import { Pagination } from "../../pagination/Pagination";
 import { Results } from "../../results/Results";
 import { Search } from "../../search/Search";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 export const Main = (): React.ReactNode => {
+  const { theme } = useThemeContext();
   const [searchResult, setSearchResult] = useState<Character[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [qtyCharacters, setQtyCharacters] = useState(0);
@@ -61,7 +63,7 @@ export const Main = (): React.ReactNode => {
   };
 
   return (
-    <main>
+    <main className={theme}>
       <Pagination
         qtyCharacters={qtyCharacters}
         currentPage={currentPage}

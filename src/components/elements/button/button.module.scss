@@ -9,6 +9,7 @@
     background-color: black;
     color: white;
   }
+
   &:disabled {
     cursor: not-allowed;
   }
@@ -17,4 +18,11 @@
 .active {
   background-color: black;
   color: white;
+}
+
+.dark {
+  color: currentColor;
+  &:not(&:disabled):hover {
+    filter: invert(1);
+  }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./button.module.scss";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 type Props = {
   textContent: string;
@@ -18,9 +19,12 @@ export const Button = ({
   isActive,
   classes,
 }: Props): React.ReactNode => {
+  const { theme } = useThemeContext();
+
   return (
     <button
-      className={`${styles.button} ${isActive ? styles.active : " "} ${classes ?? ""}`}
+      className={`${styles.button} ${isActive ? styles.active : " "} ${classes ?? ""} 
+      ${theme === "dark" ? styles.dark : ""}`}
       type={type ?? "button"}
       disabled={disabled ?? false}
       onClick={onClick}

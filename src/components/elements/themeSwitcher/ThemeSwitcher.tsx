@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./switcher.module.scss";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 export const ThemeSwitcher = (): React.ReactNode => {
+  const { toggleTheme } = useThemeContext();
+
+  const handleThemeSwitch = (): void => {
+    toggleTheme();
+  };
+
   return (
     <div>
       <label
@@ -13,6 +20,7 @@ export const ThemeSwitcher = (): React.ReactNode => {
           type="checkbox"
           name="switcher"
           id="switcher"
+          onClick={handleThemeSwitch}
         />
         <span className={styles.switcher}></span>
       </label>

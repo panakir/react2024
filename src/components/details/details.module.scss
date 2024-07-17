@@ -28,26 +28,33 @@
   border: 1px solid;
   border-radius: 50%;
   cursor: pointer;
+  transition: all 0.3s;
+
   &::after {
     position: absolute;
     content: "";
     display: block;
     width: 90%;
     height: 2px;
-    background-color: black;
+    background-color: currentColor;
     transform: rotate(45deg);
     top: calc(50% - 1px);
     left: 5%;
   }
+
   &::before {
     position: absolute;
     content: "";
     display: block;
     width: 90%;
     height: 2px;
-    background-color: black;
+    background-color: currentColor;
     transform: rotate(-45deg);
     top: calc(50% - 1px);
     left: 5%;
+  }
+
+  &:hover {
+    transform: scale(1.1);
   }
 }

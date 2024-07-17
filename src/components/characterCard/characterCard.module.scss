@@ -28,3 +28,9 @@
     font-weight: 700;
   }
 }
+
+.dark {
+  &:hover {
+    filter: invert(1);
+  }
+}
