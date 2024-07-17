@@ -1,10 +1,11 @@
 import React from "react";
+import styles from "./loader.module.scss";
 
 export const Loader = (): React.ReactNode => {
   return (
-    <div className="loader">
+    <div className={styles.loader}>
       <img
-        src="../loader.gif"
+        src="../images/loader.gif"
         alt="Loader image"
       />
       <p>loading...</p>

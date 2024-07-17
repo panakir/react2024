@@ -1,8 +1,8 @@
 import {
   getAllCharacters,
-  getCharacter,
   getFilteredCharacters,
-} from "../src/assets/shared/api";
+  getCharacter,
+} from "../src/shared/api";
 
 describe("testing getAllCharacter function", () => {
   const mockDataResponse = [{ name: "Luke", height: "172" }];

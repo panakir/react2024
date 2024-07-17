@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import { App } from "../../src/assets/components/app/App";
 import { BrowserRouter } from "react-router-dom";
+import { App } from "../../src/components/app/App";
 
 describe("testing App component", () => {
   it("should rendered with header component", () => {

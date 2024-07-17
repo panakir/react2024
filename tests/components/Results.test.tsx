@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { Results } from "../../src/assets/components/results/Results";
 import { mockResultsList } from "../mocks/ResultsMocks";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { mockResponse } from "../mocks/ResponseApiMock";
+import { Results } from "../../src/components/results/Results";
 
 const user = userEvent.setup();
 

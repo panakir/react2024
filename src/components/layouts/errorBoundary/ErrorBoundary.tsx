@@ -2,8 +2,8 @@ import React from "react";
 import { Fallback } from "./Fallback";
 
 type Props = {
-  children?: ReactNode;
-  fallback: ReactNode;
+  children?: React.ReactNode;
+  fallback: React.ReactNode;
 };
 
 interface State {

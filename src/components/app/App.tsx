@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Main } from "../main/Main";
-import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
-import { Fallback } from "../errorBoundary/Fallback";
-import { Header } from "../header/Header";
-import { Footer } from "../footer/Footer";
+
+import { Header } from "../layouts/header/Header";
+import { Footer } from "../layouts/footer/Footer";
 import { useNavigate, useParams } from "react-router-dom";
+import { Main } from "../layouts/main/Main";
+import { ErrorBoundary } from "../layouts/errorBoundary/ErrorBoundary";
+import { Fallback } from "../layouts/errorBoundary/Fallback";
 
 export const App = (): React.ReactNode => {
   const { pageId } = useParams();

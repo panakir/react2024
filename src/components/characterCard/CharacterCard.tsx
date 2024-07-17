@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styles from "./characterCard.module.scss";
-import { Character } from "../../shared/types";
+import { Character } from "@/shared/types";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -13,17 +13,17 @@ const getCharacterId = (url: string): string => {
   return id;
 };
 
-export const CharacterCard = (props: Props): ReactNode => {
-  const id = getCharacterId(props.character.url);
+export const CharacterCard = ({ character }: Props): React.ReactNode => {
+  const id = getCharacterId(character.url);
   return (
     <Link
       className={styles.link}
       to={`details/${id}`}
     >
       <div className={styles.card}>
-        <p className={styles.text}>{props.character.name}</p>
-        <p className={styles.text}>gender: {props.character.gender}</p>
-        <p className={styles.text}>birth year: {props.character.birth_year}</p>
+        <p className={styles.text}>{character.name}</p>
+        <p className={styles.text}>gender: {character.gender}</p>
+        <p className={styles.text}>birth year: {character.birth_year}</p>
       </div>
     </Link>
   );

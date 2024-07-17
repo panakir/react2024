@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Loader } from "../../src/assets/components/loader/Loader";
+import { Loader } from "../../src/components/loader/Loader";
 
 describe("testing Loader component", () => {
   render(<Loader />);

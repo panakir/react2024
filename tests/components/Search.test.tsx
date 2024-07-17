@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Search } from "../../src/assets/components/search/Search";
 import userEvent from "@testing-library/user-event";
+import { Search } from "../../src/components/search/Search";
 
 describe("testing Search component", () => {
   afterEach(() => localStorage.removeItem("searchTerm"));

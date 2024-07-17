@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Main } from "../../src/assets/components/main/Main";
+import { Main } from "../../src/components/layouts/main/Main";
 import { BrowserRouter } from "react-router-dom";
 
 describe("testing Main component", () => {

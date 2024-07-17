@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import { CharacterCard } from "../../src/assets/components/characterCard/CharacterCard";
-import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import { CharacterCard } from "../../src/components/characterCard/CharacterCard";
 
 describe("testing Character card components", () => {
   const mockedData = {

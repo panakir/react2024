@@ -20,35 +20,9 @@ main {
   padding: 20px;
 }
 
-.loader {
-  width: 50vh;
-  height: 50vh;
-  margin: 0 auto;
-  text-align: center;
-  img {
-    width: 100%;
-  }
-}
-
 button,
 input {
   outline: none;
   border: 1px solid;
   border-radius: 10px;
-}
-
-button {
-  cursor: pointer;
-  background-color: transparent;
-  padding: 10px 15px;
-  text-transform: uppercase;
-  transition: all 0.3s;
-
-  &:not(&:disabled):hover {
-    background-color: black;
-    color: white;
-  }
-  &:disabled {
-    cursor: not-allowed;
-  }
 }

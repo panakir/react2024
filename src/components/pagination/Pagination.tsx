@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./pagination.module.scss";
+import { Button } from "../elements/button/Button";
 
 const PAGE_LIMIT = 10;
 
@@ -30,12 +31,12 @@ export const Pagination = (props: Props): React.ReactNode => {
     PAGE_LIMIT
   );
 
-  const handlePrevious = (page: number): void => {
-    handlePreviousPage(page);
+  const handlePrevious = (): void => {
+    handlePreviousPage(currentPage);
   };
 
-  const handleNext = (page: number): void => {
-    handleNextPage(page);
+  const handleNext = (): void => {
+    handleNextPage(currentPage);
   };
 
   const handleSelected = (page: number): void => {
@@ -47,43 +48,41 @@ export const Pagination = (props: Props): React.ReactNode => {
       role="pagination"
       className={styles.pagination}
     >
-      <button
-        className={styles.button}
-        onClick={() => handlePrevious(currentPage)}
+      <Button
+        textContent="<"
+        onClick={handlePrevious}
         disabled={currentPage === 1}
-      >
-        &lt;
-      </button>
+        classes={styles.button}
+      />
+
       {Array(qtyPaginationButton)
         .fill(null)
         .map((_, ind) => {
           if (+currentPage === ind + 1) {
             return (
-              <button
-                className={`${styles.button} ${styles.active}`}
+              <Button
+                textContent={`${ind + 1}`}
                 key={ind}
-              >
-                {ind + 1}
-              </button>
+                classes={styles.button}
+                isActive={true}
+              />
             );
           }
           return (
-            <button
-              className={styles.button}
+            <Button
+              textContent={`${ind + 1}`}
               key={ind}
               onClick={() => handleSelected(ind + 1)}
-            >
-              {ind + 1}
-            </button>
+              classes={styles.button}
+            />
           );
         })}
-      <button
-        className={styles.button}
-        onClick={() => handleNext(currentPage)}
+      <Button
+        textContent=">"
+        onClick={handleNext}
         disabled={currentPage === qtyPaginationButton}
-      >
-        &gt;
-      </button>
+        classes={styles.button}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ErrorButton } from "../../src/assets/components/errorBoundary/ErrorButton";
+import { ErrorButton } from "../../src/components/layouts/errorBoundary/ErrorButton";
 import userEvent from "@testing-library/user-event";
 
 describe("testing Error button component", () => {

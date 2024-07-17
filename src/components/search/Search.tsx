@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./search.module.scss";
-import { ErrorButton } from "../errorBoundary/ErrorButton";
+import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
+import { Button } from "../elements/button/Button";
 
 type Props = {
   handleSearch: () => void;
@@ -32,12 +33,10 @@ export const Search = ({ handleSearch }: Props): React.ReactNode => {
         onChange={handleInputChange}
       />
       <div className={styles.buttons}>
-        <button
-          type="button"
+        <Button
+          textContent="search"
           onClick={handleSearchButton}
-        >
-          search
-        </button>
+        />
         <ErrorButton />
       </div>
     </div>

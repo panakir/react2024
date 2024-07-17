@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Search } from "../search/Search";
-import { Results } from "../results/Results";
-import { Character } from "../../shared/types";
-import { getAllCharacters, getFilteredCharacters } from "../../shared/api";
-import { Pagination } from "../pagination/Pagination";
 import { useNavigate, useParams } from "react-router-dom";
-import { Loader } from "../loader/Loader";
+import { getFilteredCharacters, getAllCharacters } from "../../../shared/api";
+import { Character } from "../../../shared/types";
+import { Loader } from "../../loader/Loader";
+import { Pagination } from "../../pagination/Pagination";
+import { Results } from "../../results/Results";
+import { Search } from "../../search/Search";
 
 export const Main = (): React.ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);

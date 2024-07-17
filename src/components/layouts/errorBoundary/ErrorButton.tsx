@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "../../elements/button/Button";
 
 export const ErrorButton = (): React.ReactNode => {
   const [hasError, setHasError] = useState(false);
@@ -11,5 +12,10 @@ export const ErrorButton = (): React.ReactNode => {
     throw new Error("Oops!");
   }
 
-  return <button onClick={handlerErrorButton}> throw error </button>;
+  return (
+    <Button
+      textContent="throw error"
+      onClick={handlerErrorButton}
+    />
+  );
 };

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Fallback } from "../../src/assets/components/errorBoundary/Fallback";
+import { Fallback } from "../../src/components/layouts/errorBoundary/Fallback";
 
 describe("testing Fallback component", () => {
   it("should be rendered with reload button", () => {
