@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "../../elements/button/Button";
+import { Button } from "@/components/elements/button/Button";
 
 export const ErrorButton = (): React.ReactNode => {
   const [hasError, setHasError] = useState(false);

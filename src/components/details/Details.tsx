@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
-import { Character } from "../../shared/types";
+import { Character } from "@/shared/types";
+import React from "react";
 import styles from "./details.module.scss";
+import { useNavigate, useLoaderData } from "react-router-dom";
 
-export const Details = (): ReactNode => {
+export const Details = (): React.ReactNode => {
   const navigate = useNavigate();
   const character = useLoaderData() as Character;
 
@@ -17,6 +17,7 @@ export const Details = (): ReactNode => {
         <p className={styles.text}>birth year: {character.birth_year}</p>
       </div>
       <div
+        data-testid="details-close-btn"
         className={styles.closeBtn}
         onClick={() => navigate("..", { replace: false })}
       ></div>

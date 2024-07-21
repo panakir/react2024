@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "./search.module.scss";
-import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
 import { Button } from "../elements/button/Button";
+import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
+import styles from "./search.module.scss";
 
 type Props = {
   handleSearch: () => void;

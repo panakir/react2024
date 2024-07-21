@@ -1,7 +1,7 @@
-import { ThemeSwitcher } from "@/components/elements/themeSwitcher/ThemeSwitcher";
 import React from "react";
-import styles from "./header.module.scss";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { ThemeSwitcher } from "@/components/elements/themeSwitcher/ThemeSwitcher";
+import styles from "./header.module.scss";
 
 export const Header = (): React.ReactNode => {
   const { theme } = useThemeContext();

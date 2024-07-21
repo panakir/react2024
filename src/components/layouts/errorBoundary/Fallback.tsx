@@ -1,6 +1,6 @@
 import React from "react";
+import { Button } from "@/components/elements/button/Button";
 import styles from "./fallback.module.scss";
-import { Button } from "../../elements/button/Button";
 
 export const Fallback = (): React.ReactNode => {
   return (

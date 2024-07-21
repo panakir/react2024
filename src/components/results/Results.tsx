@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./results.module.scss";
-import { Character } from "../../shared/types";
-import { CharacterCard } from "../characterCard/CharacterCard";
+import { Character } from "@/shared/types";
 import { Outlet } from "react-router-dom";
+import { CharacterCard } from "../characterCard/CharacterCard";
+import styles from "./results.module.scss";
 
 type Props = {
   result: Character[];
@@ -18,7 +18,6 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
     <h2>There is no results... Try something else</h2>
   ) : (
     <div
-      role="results"
       data-testid="results"
       className={styles.result}
     >

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./pagination.module.scss";
-import { Button } from "../elements/button/Button";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { Button } from "../elements/button/Button";
+import styles from "./pagination.module.scss";
 
 const PAGE_LIMIT = 10;
 

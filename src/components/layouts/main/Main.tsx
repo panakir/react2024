@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getFilteredCharacters, getAllCharacters } from "../../../shared/api";
-import { Character } from "../../../shared/types";
-import { Loader } from "../../loader/Loader";
-import { Pagination } from "../../pagination/Pagination";
-import { Results } from "../../results/Results";
-import { Search } from "../../search/Search";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { Loader } from "@/components/loader/Loader";
+import { Pagination } from "@/components/pagination/Pagination";
+import { Results } from "@/components/results/Results";
+import { Search } from "@/components/search/Search";
+import { getFilteredCharacters, getAllCharacters } from "@/shared/api";
+import { Character } from "@/shared/types";
 
 export const Main = (): React.ReactNode => {
   const { theme } = useThemeContext();
@@ -51,6 +51,7 @@ export const Main = (): React.ReactNode => {
     navigate(`../page/${page - 1}`, { replace: true });
     setCurrentPage(page - 1);
   };
+
   const handleNextPage = (page: number): void => {
     navigate(`../page/${page + 1}`, { replace: true });
     setCurrentPage(page + 1);

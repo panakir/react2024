@@ -1,13 +1,13 @@
+import { App } from "@/components/app/App";
+import { Details } from "@/components/details/Details";
+import { Fallback } from "@/components/layouts/errorBoundary/Fallback";
+import { NotFound } from "@/components/layouts/not-found/NotFound";
+import { getCharacter } from "@/shared/api";
 import {
-  createBrowserRouter,
   LoaderFunction,
   LoaderFunctionArgs,
+  createBrowserRouter,
 } from "react-router-dom";
-import { App } from "../components/app/App";
-import { Details } from "../components/details/Details";
-import { NotFound } from "../components/layouts/not-found/NotFound";
-import { getCharacter } from "../shared/api";
-import { Fallback } from "../components/layouts/errorBoundary/Fallback";
 
 const loaderDetails: LoaderFunction = async ({
   params,
