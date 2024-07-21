@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useLocalStorage = (): [string, (query: string) => void] => {
+export const useSearchTerm = (): [string, (query: string) => void] => {
   const [query, setQuery] = useState(
     () => localStorage.getItem("searchTerm") ?? ""
   );

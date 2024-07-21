@@ -9,7 +9,7 @@ import { Main } from "../layouts/main/Main";
 export const App = (): React.ReactNode => {
   const { pageId } = useParams();
   const navigate = useNavigate();
-  const currentPage = parseInt(pageId ?? "1", 10);
+  const currentPage = +(pageId || 1);
 
   useEffect(() => {
     if (location.pathname === "/") {

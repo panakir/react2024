@@ -16,16 +16,17 @@ const getCharacterId = (url: string): string => {
 
 export const CharacterCard = ({ character }: Props): React.ReactNode => {
   const { theme } = useThemeContext();
-  const id = getCharacterId(character.url);
+  const { name, gender, birth_year, url } = character;
+  const id = getCharacterId(url);
   return (
     <Link
       className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
       to={`details/${id}`}
     >
       <div className={styles.card}>
-        <p className={styles.text}>{character.name}</p>
-        <p className={styles.text}>gender: {character.gender}</p>
-        <p className={styles.text}>birth year: {character.birth_year}</p>
+        <p className={styles.text}>{name}</p>
+        <p className={styles.text}>gender: {gender}</p>
+        <p className={styles.text}>birth year: {birth_year}</p>
       </div>
     </Link>
   );

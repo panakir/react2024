@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./footer.module.scss";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { config } from "./footer.config";
 
 export const Footer = (): React.ReactNode => {
   const { theme } = useThemeContext();
+  const { nickname, year } = config;
+
   return (
     <footer className={`${styles.footer} ${theme}`}>
       <div className={styles.info}>
@@ -11,9 +14,9 @@ export const Footer = (): React.ReactNode => {
           className={styles.link}
           href="https://github.com/panakir"
         >
-          &copy;panakir,
+          &copy;{nickname},
         </a>
-        <span>2024</span>
+        <span>{year}</span>
       </div>
       <a
         className={styles.logo}

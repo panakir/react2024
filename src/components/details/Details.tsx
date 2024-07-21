@@ -5,21 +5,26 @@ import { useNavigate, useLoaderData } from "react-router-dom";
 
 export const Details = (): React.ReactNode => {
   const navigate = useNavigate();
-  const character = useLoaderData() as Character;
+  const { name, height, mass, gender, birth_year } =
+    useLoaderData() as Character;
+
+  const handleCloseBtn = (): void => {
+    navigate("..", { replace: false });
+  };
 
   return (
     <div className={`${styles.details} details`}>
       <div className={styles.info}>
-        <h2 className={styles.title}>{character.name}</h2>
-        <p className={styles.text}>height: {character.height} </p>
-        <p className={styles.text}>mass: {character.mass}</p>
-        <p className={styles.text}>gender: {character.gender}</p>
-        <p className={styles.text}>birth year: {character.birth_year}</p>
+        <h2 className={styles.title}>{name}</h2>
+        <p className={styles.text}>height: {height} </p>
+        <p className={styles.text}>mass: {mass}</p>
+        <p className={styles.text}>gender: {gender}</p>
+        <p className={styles.text}>birth year: {birth_year}</p>
       </div>
       <div
         data-testid="details-close-btn"
         className={styles.closeBtn}
-        onClick={() => navigate("..", { replace: false })}
+        onClick={handleCloseBtn}
       ></div>
     </div>
   );

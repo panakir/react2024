@@ -14,9 +14,11 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
     closeOutlet();
   };
 
-  return result.length === 0 ? (
-    <h2>There is no results... Try something else</h2>
-  ) : (
+  if (!result.length) {
+    return <h2>There is no results... Try something else</h2>;
+  }
+
+  return (
     <div
       data-testid="results"
       className={styles.result}
