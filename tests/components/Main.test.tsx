@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import { Main } from "../../src/components/layouts/main/Main";
-import { BrowserRouter } from "react-router-dom";
+import { Main } from "@/components/layouts/main/Main";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { render, screen, waitFor } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import { Mock } from "vitest";
 
 vi.mock("@/hooks/useThemeContext", () => ({
@@ -27,16 +27,31 @@ describe("testing Main component", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("should rendered with Result components", async () => {
+  it("should rendered with loader before Results rendered", () => {
     render(
       <BrowserRouter>
         <Main />
       </BrowserRouter>
     );
 
-    const results = await screen.findByRole("results");
+    const loader = screen.getByText(/loading/i);
 
-    expect(results).toBeInTheDocument();
+    expect(loader).toBeInTheDocument();
+  });
+
+  it("should rendered with Results after loader", () => {
+    render(
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    );
+
+    const loader = screen.getByText(/loading/i);
+    expect(loader).toBeInTheDocument();
+    waitFor(async () => {
+      const result = await screen.findByTestId("results");
+      expect(result).toBeInTheDocument();
+    });
   });
 
   it("should rendered with Pagination components", async () => {
