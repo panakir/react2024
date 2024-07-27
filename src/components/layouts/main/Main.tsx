@@ -7,7 +7,7 @@ import { Results } from "@/components/results/Results";
 import { Search } from "@/components/search/Search";
 import { getFilteredCharacters, getAllCharacters } from "@/shared/api";
 import { Character } from "@/shared/types";
-import { Flyout } from "@/components/flayout/Flyout";
+import { Flyout } from "@/components/flyout/Flyout";
 
 export const Main = (): React.ReactNode => {
   const { theme } = useThemeContext();
