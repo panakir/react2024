@@ -3,6 +3,9 @@ import styles from "./characterCard.module.scss";
 import { Character } from "@/shared/types";
 import { Link } from "react-router-dom";
 import { useThemeContext } from "@/hooks/useThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, deleteItem } from "@/store/slices/selectItemsSlice";
+import { RootState } from "@/store/store";
 
 type Props = {
   character: Character;
@@ -15,19 +18,48 @@ const getCharacterId = (url: string): string => {
 };
 
 export const CharacterCard = ({ character }: Props): React.ReactNode => {
+  const dispatch = useDispatch();
+  const selectedItems = useSelector((state: RootState) => state.selectItem);
   const { theme } = useThemeContext();
   const { name, gender, birth_year, url } = character;
   const id = getCharacterId(url);
+
+  const handleSelectItem = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    if (!event.target.checked) {
+      dispatch(deleteItem(character));
+    } else {
+      dispatch(addItem(character));
+    }
+  };
+
+  const isSelected = selectedItems.some((item) => item.url === character.url);
+
   return (
-    <Link
-      className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
-      to={`details/${id}`}
-    >
-      <div className={styles.card}>
-        <p className={styles.text}>{name}</p>
-        <p className={styles.text}>gender: {gender}</p>
-        <p className={styles.text}>birth year: {birth_year}</p>
-      </div>
-    </Link>
+    <div className={styles.card}>
+      <label
+        htmlFor={`selectCard-${id}`}
+        className={styles.select}
+      >
+        <input
+          checked={isSelected}
+          type="checkbox"
+          name="select-card"
+          id={`selectCard-${id}`}
+          onChange={(e) => handleSelectItem(e)}
+        />
+        select card
+      </label>
+      <p className={styles.text}>{name}</p>
+      <p className={styles.text}>gender: {gender}</p>
+      <p className={styles.text}>birth year: {birth_year}</p>
+      <Link
+        className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
+        to={`details/${id}`}
+      >
+        show details
+      </Link>
+    </div>
   );
 };

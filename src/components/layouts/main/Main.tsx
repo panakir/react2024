@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useThemeContext } from "@/hooks/useThemeContext";
-import { Loader } from "@/components/loader/Loader";
+import { Loader } from "@/components/elements/loader/Loader";
 import { Pagination } from "@/components/pagination/Pagination";
 import { Results } from "@/components/results/Results";
 import { Search } from "@/components/search/Search";
 import { getFilteredCharacters, getAllCharacters } from "@/shared/api";
 import { Character } from "@/shared/types";
+import { Flyout } from "@/components/flayout/Flyout";
 
 export const Main = (): React.ReactNode => {
   const { theme } = useThemeContext();
@@ -81,6 +82,7 @@ export const Main = (): React.ReactNode => {
           closeOutlet={handleCloseOutlet}
         />
       )}
+      <Flyout />
     </main>
   );
 };
