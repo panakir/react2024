@@ -2,15 +2,15 @@ import React from "react";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Button } from "../elements/button/Button";
 import styles from "./pagination.module.scss";
+import { useDispatch } from "react-redux";
+import { updatePage } from "@/store/slices/searchSlice";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_LIMIT = 10;
 
 type Props = {
   qtyCharacters: number;
   currentPage: number;
-  handlePreviousPage: (x: number) => void;
-  handleSelectedPage: (x: number) => void;
-  handleNextPage: (x: number) => void;
 };
 
 const calculateQtyPaginationButton = (
@@ -19,14 +19,10 @@ const calculateQtyPaginationButton = (
 ): number => Math.ceil(qtyCharacters / pageLimit);
 
 export const Pagination = (props: Props): React.ReactNode => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme } = useThemeContext();
-  const {
-    qtyCharacters,
-    currentPage,
-    handleSelectedPage,
-    handlePreviousPage,
-    handleNextPage,
-  } = props;
+  const { qtyCharacters, currentPage } = props;
 
   const qtyPaginationButton = calculateQtyPaginationButton(
     qtyCharacters,
@@ -34,15 +30,20 @@ export const Pagination = (props: Props): React.ReactNode => {
   );
 
   const handlePrevious = (): void => {
-    handlePreviousPage(currentPage);
+    const page = (currentPage - 1).toString();
+    navigate(`../page/${page}`, { replace: true });
+    dispatch(updatePage(page));
   };
 
   const handleNext = (): void => {
-    handleNextPage(currentPage);
+    const page = (currentPage + 1).toString();
+    navigate(`../page/${page}`, { replace: true });
+    dispatch(updatePage(page));
   };
 
   const handleSelected = (page: number): void => {
-    handleSelectedPage(page);
+    navigate(`../page/${page}`, { replace: true });
+    dispatch(updatePage(`${page}`));
   };
 
   return (

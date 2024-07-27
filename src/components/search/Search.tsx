@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button } from "../elements/button/Button";
 import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
 import styles from "./search.module.scss";
+import { useDispatch } from "react-redux";
+import { updatePage, updateQuery } from "@/store/slices/searchSlice";
 
-type Props = {
-  handleSearch: () => void;
-};
+export const Search = (): React.ReactNode => {
+  const dispatch = useDispatch();
 
-export const Search = ({ handleSearch }: Props): React.ReactNode => {
   const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem("searchTerm") || ""
   );
@@ -17,8 +17,8 @@ export const Search = ({ handleSearch }: Props): React.ReactNode => {
   };
 
   const handleSearchButton = (): void => {
-    localStorage.setItem("searchTerm", searchTerm);
-    handleSearch();
+    dispatch(updateQuery(searchTerm));
+    dispatch(updatePage("1"));
   };
 
   return (

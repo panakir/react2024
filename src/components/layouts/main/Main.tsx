@@ -1,62 +1,41 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Loader } from "@/components/elements/loader/Loader";
 import { Pagination } from "@/components/pagination/Pagination";
 import { Results } from "@/components/results/Results";
 import { Search } from "@/components/search/Search";
-import { getFilteredCharacters, getAllCharacters } from "@/shared/api";
 import { Character } from "@/shared/types";
 import { Flyout } from "@/components/flyout/Flyout";
+import { useGetCharactersQuery } from "@/store/api/swapiAPi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export const Main = (): React.ReactNode => {
+  const query = useSelector((state: RootState) => state.search.query);
+  const page = useSelector((state: RootState) => state.search.page);
+
+  const { data, isFetching, error } = useGetCharactersQuery({
+    query,
+    page,
+  });
+
   const { theme } = useThemeContext();
   const [searchResult, setSearchResult] = useState<Character[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [qtyCharacters, setQtyCharacters] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const params = useParams();
 
-  const handleSearchRequest = useCallback(async (): Promise<void> => {
-    setIsLoading(true);
-    const query = localStorage.getItem("searchTerm") ?? "";
-
-    if (query) {
-      const filteredCharacters = await getFilteredCharacters(
-        query,
-        currentPage
-      );
-
-      setSearchResult(filteredCharacters.results);
-      setQtyCharacters(filteredCharacters.count);
-      setIsLoading(false);
-    } else {
-      const characters = await getAllCharacters(`${currentPage}`);
-      setQtyCharacters(characters.count);
-      setSearchResult(characters.results);
-      setIsLoading(false);
-    }
-  }, [currentPage]);
-
   useEffect(() => {
-    handleSearchRequest();
-  }, [handleSearchRequest]);
-
-  const handleSelectedPage = (page: number): void => {
-    navigate(`../page/${page}`, { replace: true });
-    setCurrentPage(page);
-  };
-
-  const handlePreviousPage = (page: number): void => {
-    navigate(`../page/${page - 1}`, { replace: true });
-    setCurrentPage(page - 1);
-  };
-
-  const handleNextPage = (page: number): void => {
-    navigate(`../page/${page + 1}`, { replace: true });
-    setCurrentPage(page + 1);
-  };
+    if (data) {
+      const { results, count } = data;
+      setSearchResult(results);
+      setQtyCharacters(count);
+      setCurrentPage(+page);
+      navigate(`../page/${currentPage}`);
+    }
+  }, [currentPage, data, navigate, page]);
 
   const handleCloseOutlet = (): void => {
     if (params.id) {
@@ -69,12 +48,11 @@ export const Main = (): React.ReactNode => {
       <Pagination
         qtyCharacters={qtyCharacters}
         currentPage={currentPage}
-        handlePreviousPage={handlePreviousPage}
-        handleSelectedPage={handleSelectedPage}
-        handleNextPage={handleNextPage}
       />
-      <Search handleSearch={handleSearchRequest} />
-      {isLoading ? (
+      <Search />
+      {error ? (
+        <>Oops!</>
+      ) : isFetching ? (
         <Loader />
       ) : (
         <Results
