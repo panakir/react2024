@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { CharacterCard } from "../../src/components/characterCard/CharacterCard";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Mock } from "vitest";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 vi.mock("@/hooks/useThemeContext", () => ({
   useThemeContext: vi.fn(),
@@ -28,9 +30,11 @@ describe("testing Character card components", () => {
 
   it("should renders the relevant card data", () => {
     render(
-      <BrowserRouter>
-        <CharacterCard character={mockedData} />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <CharacterCard character={mockedData} />
+        </BrowserRouter>
+      </Provider>
     );
 
     const name = screen.getByText(/luke/i);
@@ -44,9 +48,11 @@ describe("testing Character card components", () => {
 
   it("should be redirect to Details", async () => {
     render(
-      <BrowserRouter>
-        <CharacterCard character={mockedData} />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <CharacterCard character={mockedData} />
+        </BrowserRouter>
+      </Provider>
     );
     const card = screen.getByRole("link");
     await userEvent.setup().click(card);

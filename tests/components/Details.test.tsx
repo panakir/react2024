@@ -1,9 +1,10 @@
 import { Details } from "@/components/details/Details";
 import userEvent from "@testing-library/user-event";
-import { render } from "@testing-library/react";
-import { useLoaderData } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
 import { Mock } from "vitest";
-import { mockResultsList } from "../mocks/ResultsMocks";
+import configureStore from "redux-mock-store";
+import { store } from "@/store/store";
+import { Provider } from "react-redux";
 
 const mockedNavigate = vi.fn();
 
@@ -17,20 +18,42 @@ vi.mock("react-router-dom", async (importOriginal: () => object) => {
 });
 
 describe("testing Details panel", () => {
+  const initialStore = {
+    characters: {
+      details: {
+        name: "Luke Skywalker",
+        height: "172",
+        mass: "77",
+        birth_year: "19BBY",
+        gender: "male",
+        url: "https://swapi.dev/api/people/1/",
+      },
+    },
+  };
+
+  const mockStore = configureStore();
+  const detailsStore = mockStore(initialStore);
+
   it("should rendered with correct data", () => {
-    (useLoaderData as Mock).mockReturnValue(mockResultsList[0]);
+    render(
+      <Provider store={detailsStore}>
+        <Details />
+      </Provider>
+    );
 
-    const { getByText } = render(<Details />);
-
-    expect(getByText(/height/i)).toBeInTheDocument();
-    expect(getByText(/mass/i)).toBeInTheDocument();
-    expect(getByText(/gender/i)).toBeInTheDocument();
-    expect(getByText(/birth/i)).toBeInTheDocument();
-    expect(getByText(/luke/i)).toBeInTheDocument();
+    expect(screen.getByText(/height/i)).toBeInTheDocument();
+    expect(screen.getByText(/mass/i)).toBeInTheDocument();
+    expect(screen.getByText(/gender/i)).toBeInTheDocument();
+    expect(screen.getByText(/birth/i)).toBeInTheDocument();
+    expect(screen.getByText(/luke/i)).toBeInTheDocument();
   });
 
   it("should be closed when close button clicked", async () => {
-    const { getByTestId } = render(<Details />);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Details />
+      </Provider>
+    );
     const closeBtn = getByTestId("details-close-btn");
 
     await userEvent.setup().click(closeBtn);
