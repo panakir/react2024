@@ -1,15 +1,16 @@
-import { Character } from "@/shared/types";
 import React from "react";
 import styles from "./details.module.scss";
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export const Details = (): React.ReactNode => {
   const navigate = useNavigate();
-  const { name, height, mass, gender, birth_year } =
-    useLoaderData() as Character;
+  const character = useSelector((state: RootState) => state.characters.details);
+  const { name, height, birth_year, gender, mass } = character;
 
   const handleCloseBtn = (): void => {
-    navigate("..", { replace: false });
+    navigate("..");
   };
 
   return (

@@ -6,6 +6,7 @@ import { useThemeContext } from "@/hooks/useThemeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "@/store/slices/selectItemsSlice";
 import { RootState } from "@/store/store";
+import { addDetailsCharacter } from "@/store/slices/charactersSlice";
 
 type Props = {
   character: Character;
@@ -34,6 +35,10 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
     }
   };
 
+  const handleDetailsClick = (): void => {
+    dispatch(addDetailsCharacter(character));
+  };
+
   const isSelected = selectedItems.some((item) => item.url === character.url);
 
   return (
@@ -57,6 +62,7 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
       <Link
         className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
         to={`details/${id}`}
+        onClick={handleDetailsClick}
       >
         show details
       </Link>

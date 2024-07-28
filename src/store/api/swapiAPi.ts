@@ -1,4 +1,4 @@
-import { ResponseFromApi } from "@/shared/types";
+import { Character, ResponseFromApi } from "@/shared/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const swapiApi = createApi({
@@ -10,6 +10,9 @@ const swapiApi = createApi({
       { query: string; page: string }
     >({
       query: ({ query, page }) => `?search=${query}&page=${page}`,
+    }),
+    getCharacterById: builder.query<Character, string>({
+      query: (id: string) => `/${id}`,
     }),
   }),
 });
