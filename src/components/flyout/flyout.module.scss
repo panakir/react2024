@@ -1,0 +1,35 @@
+.flyout {
+  position: fixed;
+  bottom: 1em;
+
+  right: calc(50% - 7.5vw);
+  width: 15vw;
+  background-color: grey;
+  color: inherit;
+  display: block;
+  padding: 1em 2em;
+  transition: all 0.3s;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: 1.5em;
+  z-index: 5;
+
+  &_hidden {
+    transform: translateY(100vh);
+  }
+}
+
+.link {
+  color: inherit;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8em;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px 15px;
+  transition: all 0.3s;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}

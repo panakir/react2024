@@ -1,4 +1,5 @@
-import { Character } from "../../src/assets/shared/types";
+import { Character } from "../../src/shared/types";
+
 
 export const mockResultsList: Character[] = [
   {

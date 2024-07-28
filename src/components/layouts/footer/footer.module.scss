@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  gap: 1em;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+}
+.logo {
+  width: 5em;
+  height: 5em;
+  background: url("../images/icons/logo-rss.svg") center/ 100% no-repeat;
+}

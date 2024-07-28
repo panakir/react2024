@@ -1,8 +1,22 @@
 import { render } from "@testing-library/react";
-import { App } from "../../src/assets/components/app/App";
 import { BrowserRouter } from "react-router-dom";
+import { App } from "../../src/components/app/App";
+import { useThemeContext } from "@/hooks/useThemeContext";
+import { Mock } from "vitest";
+
+vi.mock("@/hooks/useThemeContext", () => ({
+  useThemeContext: vi.fn(),
+}));
 
 describe("testing App component", () => {
+  beforeEach(() => {
+    const mockContext = {
+      theme: "dark",
+      setTheme: vi.fn(),
+    };
+    (useThemeContext as Mock).mockReturnValue(mockContext);
+  });
+
   it("should rendered with header component", () => {
     const { container } = render(
       <BrowserRouter>
