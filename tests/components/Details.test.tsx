@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 
 const mockedNavigate = vi.fn();
 
-vi.mock("react-router-dom", async (importOriginal: () => object) => {
-  const modules = await importOriginal();
+vi.mock("react-router-dom", (importOriginal: () => object) => {
+  const modules = importOriginal();
   return {
     ...modules,
     useLoaderData: vi.fn(),
