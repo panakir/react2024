@@ -24,26 +24,26 @@ describe("Router", () => {
   });
 
   it("should render the Details component on the /page/:pageId/details/:id path", () => {
-    const { findByText } = renderWithRouter("/page/1/details/1");
+    renderWithRouter("/page/1/details/1");
     waitFor(async () => {
-      const details = await findByText(/luke/i);
+      const details = await screen.findByText(/luke/i);
       expect(details).toBeInTheDocument();
     });
   });
 
   it("should render the Fallback component on an error", () => {
-    const { findByText } = renderWithRouter("/error");
+    renderWithRouter("/error");
     waitFor(async () => {
-      const fallback = await findByText(/oops/i);
+      const fallback = await screen.findByText(/oops/i);
       expect(fallback).toBeInTheDocument();
     });
   });
 
   it("should render the NotFound component on an unknown path", () => {
-    const { findByText } = renderWithRouter("/unknown-path");
+    renderWithRouter("/unknown-path");
 
     waitFor(async () => {
-      const notFound = await findByText(/404/i);
+      const notFound = await screen.findByText(/404/i);
       expect(notFound).toBeInTheDocument();
     });
   });
