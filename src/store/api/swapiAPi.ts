@@ -17,5 +17,5 @@ const swapiApi = createApi({
   }),
 });
 
-export const { useGetCharactersQuery } = swapiApi;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } = swapiApi;
 export default swapiApi;
