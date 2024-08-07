@@ -1,10 +1,9 @@
-import { Footer } from "@/components/layouts/footer/Footer";
-import { Header } from "@/components/layouts/header/Header";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/main.scss";
 import { store } from "@/store/store";
-import { AppProps } from "next/app";
 import { Provider } from "react-redux";
+import Layout from "./layout";
+import { AppProps } from "next/app";
 
 // This default export is required in a new `pages/_app.js` file.
 const MyApp = ({ Component, pageProps }: AppProps): React.ReactNode => {
@@ -12,9 +11,10 @@ const MyApp = ({ Component, pageProps }: AppProps): React.ReactNode => {
     <>
       <Provider store={store}>
         <ThemeProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
+          <Layout>
+            <Component {...pageProps} />
+            {/* {children} */}
+          </Layout>
         </ThemeProvider>
       </Provider>
     </>

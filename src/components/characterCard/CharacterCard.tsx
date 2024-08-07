@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./characterCard.module.scss";
 import { Character } from "@/shared/types";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "@/store/slices/selectItemsSlice";
@@ -61,7 +61,7 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
       <p className={styles.text}>birth year: {birth_year}</p>
       <Link
         className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
-        to={`details/${id}`}
+        href={`details/${id}`}
         onClick={handleDetailsClick}
       >
         show details

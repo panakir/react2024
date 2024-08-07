@@ -1,15 +1,19 @@
 .details {
-  position: relative;
+  position: fixed;
+  top: 5vh;
+  right: 5vw;
   padding: 10px 15px;
   border: 1px solid;
   border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0.5em 0.5em 1em 0 rgb(0, 0, 0, 0.4);
   max-width: 20vw;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: clamp(100%, 30vh, 100vh);
+  height: clamp(10vh, 30vh, 100vh);
 }
 
 .title {

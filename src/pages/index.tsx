@@ -1,11 +1,5 @@
-import { Main } from "@/components/layouts/main/Main";
-
-const Page = (): React.ReactNode => {
-  return (
-    <>
-      <Main />
-    </>
-  );
+const Page = ({ children }: { children: React.ReactNode }): React.ReactNode => {
+  return <>{children}</>;
 };
 
 export default Page;
