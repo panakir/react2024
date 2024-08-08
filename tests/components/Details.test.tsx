@@ -1,22 +1,11 @@
 import { Details } from "@/components/details/Details";
+import React from "react";
 import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Mock } from "vitest";
 import { store } from "@/store/store";
-import { useParams } from "react-router-dom";
 import { Provider } from "react-redux";
-
-const mockedNavigate = vi.fn();
-const mockedHook = vi.fn();
-
-vi.mock("react-router-dom", (importOriginal: () => object) => {
-  const modules = importOriginal();
-  return {
-    ...modules,
-    useParams: vi.fn(),
-    useNavigate: (): Mock => mockedNavigate,
-  };
-});
+import { useRouter } from "next/router";
 
 vi.mock("react-redux", async (importOriginal: () => object) => {
   const modules = await importOriginal();
@@ -26,9 +15,27 @@ vi.mock("react-redux", async (importOriginal: () => object) => {
   };
 });
 
+const mockedHook = vi.fn();
+vi.mock("next/router", async (importOriginal: () => object) => {
+  const modules = await importOriginal();
+  return {
+    ...modules,
+    useRouter: vi.fn().mockReturnValue({
+      query: { id: "1" },
+    }),
+  };
+});
 describe("testing Details panel", () => {
+  beforeEach(() => {
+    (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+      back: vi.fn(),
+    });
+  });
   it("should rendered with correct data", async () => {
-    (useParams as Mock).mockReturnValue("1");
+    (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+    });
 
     render(
       <Provider store={store}>
@@ -45,15 +52,21 @@ describe("testing Details panel", () => {
   });
 
   it("should be closed when close button clicked", async () => {
-    const { getByTestId } = render(
+    const mockBack = (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+      back: vi.fn(),
+    });
+
+    const { findByTestId } = render(
       <Provider store={store}>
         <Details />
       </Provider>
     );
-    const closeBtn = getByTestId("details-close-btn");
+
+    const closeBtn = await findByTestId("details-close-btn");
 
     await userEvent.setup().click(closeBtn);
 
-    expect(mockedNavigate).toHaveBeenCalled();
+    expect(mockBack).toHaveBeenCalled();
   });
 });

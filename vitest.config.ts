@@ -9,7 +9,10 @@ export default defineConfig({
       interopDefault: true
     },
     globals: true,
-    setupFiles: 'tests/setup.ts'
+    setupFiles: 'tests/setup.ts',
+    coverage: {
+      include: ['src']
+    }
   },
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]

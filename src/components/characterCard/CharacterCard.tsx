@@ -61,6 +61,7 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
       <p className={styles.text}>gender: {gender}</p>
       <p className={styles.text}>birth year: {birth_year}</p>
       <Link
+        data-testid="link"
         className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
         href={
           query.length > 0

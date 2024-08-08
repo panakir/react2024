@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import Layout from "./layout";
 import { AppProps } from "next/app";
 
-// This default export is required in a new `pages/_app.js` file.
 const MyApp = ({ Component, pageProps }: AppProps): React.ReactNode => {
   return (
     <>

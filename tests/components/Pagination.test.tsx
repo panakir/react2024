@@ -1,153 +1,133 @@
+import React from "react";
 import { Pagination } from "@/components/pagination/Pagination";
 import { useThemeContext } from "@/hooks/useThemeContext";
-import { store } from "@/store/store";
-import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { useDispatch } from "react-redux";
 import { Mock } from "vitest";
+import userEvent from "@testing-library/user-event";
+import { updatePage } from "@/store/slices/searchSlice";
+
+vi.mock("react-redux", () => ({
+  useDispatch: vi.fn(),
+}));
 
 vi.mock("@/hooks/useThemeContext", () => ({
   useThemeContext: vi.fn(),
 }));
 
-const mockedNavigate = vi.fn();
+describe("Pagination Component", () => {
+  const mockDispatch = vi.fn();
+  const mockThemeContext = { theme: "light" };
 
-vi.mock("react-router-dom", async (importOriginal: () => object) => {
-  const modules = await importOriginal();
-  return {
-    ...modules,
-    useNavigate: (): Mock => mockedNavigate,
-  };
-});
-
-describe("testing Pagination component", () => {
-  const mockContextResult = {
-    theme: "light",
-    toggleTheme: vi.fn(),
-  };
-  (useThemeContext as Mock).mockReturnValue(mockContextResult);
-
-  it("should rendered with buttons", () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={1}
-          />
-        </BrowserRouter>
-      </Provider>
-    );
-    const button = getByRole("button", { name: "1" });
-    expect(button).toBeInTheDocument();
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (useDispatch as unknown as Mock).mockReturnValue(mockDispatch);
+    (useThemeContext as unknown as Mock).mockReturnValue(mockThemeContext);
   });
 
-  it("should rendered with previous page button", () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={1}
-          />
-        </BrowserRouter>
-      </Provider>
+  it("renders the correct number of pagination buttons", () => {
+    const qtyCharacters = 45;
+    const currentPage = 1;
+
+    render(
+      <Pagination
+        qtyCharacters={qtyCharacters}
+        currentPage={currentPage}
+      />
     );
-    const button = getByRole("button", { name: "<" });
-    expect(button).toBeInTheDocument();
+
+    const buttons = screen.getAllByRole("button");
+
+    expect(buttons.length).toBe(7);
   });
 
-  it("should rendered with next page button", () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={1}
-          />
-        </BrowserRouter>
-      </Provider>
+  it('disables the "Previous" button on the first page', () => {
+    render(
+      <Pagination
+        qtyCharacters={30}
+        currentPage={1}
+      />
     );
-    const button = getByRole("button", { name: ">" });
-    expect(button).toBeInTheDocument();
+
+    const prevButton = screen.getByText("<");
+    expect(prevButton).toBeDisabled();
   });
 
-  it("should rendered with correct page buttons", () => {
-    const { getAllByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={1}
-          />
-        </BrowserRouter>
-      </Provider>
+  it('disables the "Next" button on the last page', () => {
+    render(
+      <Pagination
+        qtyCharacters={30}
+        currentPage={3}
+      />
     );
-    const buttons = getAllByRole("button");
-    expect(buttons.length).toEqual(3);
+
+    const nextButton = screen.getByText(">");
+    expect(nextButton).toBeDisabled();
   });
 
-  it("should navigate to previous page when previous button clicked", async () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={2}
-          />
-        </BrowserRouter>
-      </Provider>
+  it('enables the "Next" button on any page except the last', () => {
+    render(
+      <Pagination
+        qtyCharacters={30}
+        currentPage={2}
+      />
     );
 
-    const prevBtn = getByRole("button", { name: "<" });
-    await userEvent.setup().click(prevBtn);
-    const page = 1;
-
-    expect(mockedNavigate).toHaveBeenCalledWith(`../page/${page}`, {
-      replace: true,
-    });
+    const nextButton = screen.getByText(">");
+    expect(nextButton).not.toBeDisabled();
   });
 
-  it("should navigate to next page when next button clicked", async () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={1}
-            currentPage={2}
-          />
-        </BrowserRouter>
-      </Provider>
+  it("calls dispatch with the correct page number when a page button is clicked", async () => {
+    render(
+      <Pagination
+        qtyCharacters={50}
+        currentPage={2}
+      />
     );
 
-    const nextBtn = getByRole("button", { name: ">" });
-    await userEvent.setup().click(nextBtn);
-    const page = 3;
+    const pageButton = screen.getByText("3");
+    await userEvent.setup().click(pageButton);
 
-    expect(mockedNavigate).toHaveBeenCalledWith(`../page/${page}`, {
-      replace: true,
-    });
+    expect(mockDispatch).toHaveBeenCalledWith(updatePage("3"));
   });
 
-  it("should navigate to selected page when selected button clicked", async () => {
-    const { getByRole } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Pagination
-            qtyCharacters={100}
-            currentPage={2}
-          />
-        </BrowserRouter>
-      </Provider>
+  it('calls dispatch with the correct page number when "Previous" is clicked', async () => {
+    render(
+      <Pagination
+        qtyCharacters={50}
+        currentPage={2}
+      />
     );
 
-    const selectedBtn = getByRole("button", { name: "3" });
-    await userEvent.setup().click(selectedBtn);
-    const page = 3;
+    const prevButton = screen.getByText("<");
+    await userEvent.setup().click(prevButton);
 
-    expect(mockedNavigate).toHaveBeenCalledWith(`../page/${page}`, {
-      replace: true,
-    });
+    expect(mockDispatch).toHaveBeenCalledWith(updatePage("1"));
+  });
+
+  it('calls dispatch with the correct page number when "Next" is clicked', async () => {
+    render(
+      <Pagination
+        qtyCharacters={50}
+        currentPage={2}
+      />
+    );
+
+    const nextButton = screen.getByText(">");
+    await userEvent.setup().click(nextButton);
+
+    expect(mockDispatch).toHaveBeenCalledWith(updatePage("3"));
+  });
+
+  it("applies the correct theme class to the pagination container", () => {
+    render(
+      <Pagination
+        qtyCharacters={30}
+        currentPage={1}
+      />
+    );
+
+    const paginationContainer = screen.getByTestId("pagination");
+    expect(paginationContainer).toHaveClass("light");
   });
 });

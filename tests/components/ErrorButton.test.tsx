@@ -1,40 +1,37 @@
-import { render, screen } from "@testing-library/react";
-import { ErrorButton } from "../../src/components/layouts/errorBoundary/ErrorButton";
-import userEvent from "@testing-library/user-event";
-import { useThemeContext } from "@/hooks/useThemeContext";
-import { Mock } from "vitest";
-import { ErrorBoundary } from "@/components/layouts/errorBoundary/ErrorBoundary";
-import { Fallback } from "@/components/layouts/errorBoundary/Fallback";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, vi, expect } from "vitest";
+import { ErrorButton } from "@/components/layouts/errorBoundary/ErrorButton";
+import "@testing-library/jest-dom";
+import { ThemeProvider } from "@/context/ThemeContext";
 
-vi.mock("@/hooks/useThemeContext", () => ({
-  useThemeContext: vi.fn(),
-}));
-
-describe("testing Error button component", () => {
-  beforeEach(() => {
-    const mockContext = {
-      theme: "dark",
-      setTheme: vi.fn(),
-    };
-    (useThemeContext as Mock).mockReturnValue(mockContext);
-  });
-
-  it("should render button", () => {
-    render(<ErrorButton />);
-
-    const throwErrorButton = screen.getByRole("button", { name: /error/i });
-    expect(throwErrorButton).toBeInTheDocument();
-  });
-
-  it("should throw error when throw error button clicked", async () => {
-    const { getByText } = render(
-      <ErrorBoundary fallback={<Fallback />}>
+describe("ErrorButton Component", () => {
+  it("renders the button correctly", () => {
+    render(
+      <ThemeProvider>
         <ErrorButton />
-      </ErrorBoundary>
+      </ThemeProvider>
     );
-    const button = getByText(/error/i);
-    await userEvent.setup().click(button);
-    const fallback = getByText(/force/i);
-    expect(fallback).toBeInTheDocument();
+
+    const button = screen.getByRole("button", { name: /throw error/i });
+    expect(button).toBeInTheDocument();
+  });
+
+  it("throws an error when the button is clicked", () => {
+    const originalError = console.error;
+    console.error = vi.fn();
+    render(
+      <ThemeProvider>
+        <ErrorButton />
+      </ThemeProvider>
+    );
+
+    const button = screen.getByRole("button", { name: /throw error/i });
+
+    expect(() => {
+      fireEvent.click(button);
+    }).toThrow("Oops!");
+
+    console.error = originalError;
   });
 });
