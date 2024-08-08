@@ -21,6 +21,7 @@ const getCharacterId = (url: string): string => {
 export const CharacterCard = ({ character }: Props): React.ReactNode => {
   const dispatch = useDispatch();
   const selectedItems = useSelector((state: RootState) => state.selectItem);
+  const { page, query } = useSelector((state: RootState) => state.search);
   const { theme } = useThemeContext();
   const { name, gender, birth_year, url } = character;
   const id = getCharacterId(url);
@@ -61,7 +62,17 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
       <p className={styles.text}>birth year: {birth_year}</p>
       <Link
         className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
-        href={`details/${id}`}
+        href={
+          query.length > 0
+            ? {
+                pathname: `details/${id}`,
+                query: { page, search: query },
+              }
+            : {
+                pathname: `details/${id}`,
+                query: { page },
+              }
+        }
         onClick={handleDetailsClick}
       >
         show details

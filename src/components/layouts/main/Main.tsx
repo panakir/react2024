@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Loader } from "@/components/elements/loader/Loader";
 import { Pagination } from "@/components/pagination/Pagination";
@@ -10,6 +9,7 @@ import { Flyout } from "@/components/flyout/Flyout";
 import { useGetCharactersQuery } from "@/store/api/swapiAPi";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useRouter } from "next/router";
 
 export const Main = (): React.ReactNode => {
   const query = useSelector((state: RootState) => state.search.query);
@@ -24,8 +24,16 @@ export const Main = (): React.ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
   const [qtyCharacters, setQtyCharacters] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
-  const params = useParams();
+  const router = useRouter();
+
+  const handleUrlQuery = (): void => {
+    const params = new URLSearchParams();
+    params.set("page", page);
+    if (query) {
+      params.set("search", query);
+    }
+    router.replace(`${router.pathname}?${params.toString()}`);
+  };
 
   useEffect(() => {
     if (data) {
@@ -33,15 +41,9 @@ export const Main = (): React.ReactNode => {
       setSearchResult(results);
       setQtyCharacters(count);
       setCurrentPage(+page);
-      navigate(`../page/${currentPage}`);
     }
-  }, [currentPage, data, navigate, page]);
-
-  const handleCloseOutlet = (): void => {
-    if (params.id) {
-      navigate(-1);
-    }
-  };
+    return handleUrlQuery();
+  }, [currentPage, data, page]);
 
   return (
     <main className={theme}>
@@ -55,10 +57,7 @@ export const Main = (): React.ReactNode => {
       ) : isFetching ? (
         <Loader />
       ) : (
-        <Results
-          result={searchResult}
-          closeOutlet={handleCloseOutlet}
-        />
+        <Results result={searchResult} />
       )}
       <Flyout />
     </main>

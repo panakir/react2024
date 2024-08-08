@@ -1,17 +1,21 @@
 import React from "react";
 import { Character } from "@/shared/types";
-import { Outlet } from "react-router-dom";
 import { CharacterCard } from "../characterCard/CharacterCard";
 import styles from "./results.module.scss";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 type Props = {
   result: Character[];
-  closeOutlet: () => void;
 };
 
-export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
-  const handleCloseOutlet = (): void => {
-    closeOutlet();
+export const Results = ({ result }: Props): React.ReactNode => {
+  const params = useParams();
+  const router = useRouter();
+  const handleCloseDetails = (): void => {
+    if (params.id) {
+      router.back();
+    }
   };
 
   if (!result.length) {
@@ -25,7 +29,7 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
     >
       <div
         className={styles.result__wrapper}
-        onClick={handleCloseOutlet}
+        onClick={handleCloseDetails}
       >
         {result.map((el, ind) => (
           <CharacterCard
@@ -34,7 +38,6 @@ export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
           />
         ))}
       </div>
-      <Outlet />
     </div>
   );
 };
