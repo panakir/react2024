@@ -10,6 +10,11 @@ type ParamsPropType = {
   id: string;
 };
 
+export const metadata = {
+  title: "React course 2024",
+  description: "",
+};
+
 const getStaticProps = async (
   id: string,
   page: string,
