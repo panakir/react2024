@@ -6,6 +6,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { Mock } from "vitest";
 import { useRouter } from "next/router";
+import { mockResponse } from "../mocks/ResponseApiMock";
 
 vi.mock("@/hooks/useThemeContext", () => ({
   useThemeContext: vi.fn(),
@@ -22,13 +23,13 @@ describe("testing Main component", () => {
       setTheme: vi.fn(),
     };
     (useThemeContext as Mock).mockReturnValue(mockContext);
-    (useRouter as Mock).mockReturnValue({ replace: vi.fn() });
+    (useRouter as Mock).mockReturnValue({ replace: vi.fn(), push: vi.fn() });
   });
 
   it("should rendered with search component", () => {
     render(
       <Provider store={store}>
-        <Main />
+        <Main data={mockResponse} />
       </Provider>
     );
     const button = screen.getByRole("button", { name: /search/i });
@@ -38,7 +39,7 @@ describe("testing Main component", () => {
   it("should rendered with Results after loader", () => {
     render(
       <Provider store={store}>
-        <Main />
+        <Main data={mockResponse} />
       </Provider>
     );
 
@@ -51,7 +52,7 @@ describe("testing Main component", () => {
   it("should rendered with Pagination components", async () => {
     render(
       <Provider store={store}>
-        <Main />
+        <Main data={mockResponse} />
       </Provider>
     );
     const pagination = await screen.findByTestId("pagination");

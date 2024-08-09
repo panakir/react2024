@@ -54,7 +54,7 @@ describe("testing Details panel", () => {
   it("should be closed when close button clicked", async () => {
     const mockBack = (useRouter as Mock).mockReturnValue({
       query: { id: "1" },
-      back: vi.fn(),
+      replace: vi.fn(),
     });
 
     const { findByTestId } = render(
