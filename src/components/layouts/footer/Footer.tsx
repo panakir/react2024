@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./footer.module.scss";
 import { useThemeContext } from "@/hooks/useThemeContext";

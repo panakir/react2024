@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { ThemeSwitcher } from "@/components/elements/themeSwitcher/ThemeSwitcher";

@@ -1,3 +1,4 @@
+"use client";
 import { ContextType, ThemeContext } from "@/context/ThemeContext";
 import { useContext } from "react";
 

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Pagination } from "@/components/pagination/Pagination";
@@ -7,7 +8,7 @@ import { Character, ResponseFromApi } from "@/shared/types";
 import { Flyout } from "@/components/flyout/Flyout";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type MainProps = {
   data: ResponseFromApi;
@@ -42,7 +43,7 @@ export const Main = ({ data, detailsData }: MainProps): React.ReactNode => {
     } else {
       router.push(`?${params.toString()}`);
     }
-  }, [page, query]);
+  }, [page, query, detailsData]);
 
   return (
     <main className={theme}>

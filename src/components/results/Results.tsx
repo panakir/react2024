@@ -2,8 +2,7 @@ import React from "react";
 import { Character } from "@/shared/types";
 import { CharacterCard } from "../characterCard/CharacterCard";
 import styles from "./results.module.scss";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import { Details } from "../details/Details";
 
 type Props = {

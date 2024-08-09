@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { Button } from "@/components/elements/button/Button";
 import styles from "./fallback.module.scss";
 import { config } from "./fallback.config";

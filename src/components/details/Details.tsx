@@ -2,17 +2,17 @@ import React from "react";
 import styles from "./details.module.scss";
 import { useGetCharacterByIdQuery } from "@/store/api/swapiAPi";
 import { Loader } from "../elements/loader/Loader";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 
 export const Details = (): React.ReactNode => {
+  const params = useParams();
   const router = useRouter();
-
   const { data: character, isLoading } = useGetCharacterByIdQuery(
-    router.query.id as string
+    params?.id as string
   );
 
   const handleCloseBtn = (): void => {
-    router.replace("/");
+    router.back();
   };
 
   return isLoading ? (
