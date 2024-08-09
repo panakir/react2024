@@ -1,3 +1,4 @@
+import React from "react";
 import { Loader } from "@/components/elements/loader/Loader";
 import { render, screen } from "@testing-library/react";
 

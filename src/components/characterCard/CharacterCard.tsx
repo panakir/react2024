@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./characterCard.module.scss";
 import { Character } from "@/shared/types";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "@/store/slices/selectItemsSlice";
@@ -12,18 +12,12 @@ type Props = {
   character: Character;
 };
 
-const getCharacterId = (url: string): string => {
-  const splitUrl = url.split("/").reverse();
-  const [, id] = splitUrl;
-  return id;
-};
-
 export const CharacterCard = ({ character }: Props): React.ReactNode => {
   const dispatch = useDispatch();
   const selectedItems = useSelector((state: RootState) => state.selectItem);
+  const { page, query } = useSelector((state: RootState) => state.search);
   const { theme } = useThemeContext();
-  const { name, gender, birth_year, url } = character;
-  const id = getCharacterId(url);
+  const { name, gender, birth_year } = character;
 
   const handleSelectItem = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -40,7 +34,7 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
   };
 
   const isSelected = selectedItems.some((item) => item.url === character.url);
-
+  const [, id] = character.url.split("/").reverse();
   return (
     <div className={styles.card}>
       <label
@@ -60,8 +54,19 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
       <p className={styles.text}>gender: {gender}</p>
       <p className={styles.text}>birth year: {birth_year}</p>
       <Link
+        data-testid="link"
         className={`${styles.link} ${theme === "dark" ? styles.dark : ""}`}
-        to={`details/${id}`}
+        href={
+          query.length > 0
+            ? {
+                pathname: `details/${id}`,
+                query: { page, search: query },
+              }
+            : {
+                pathname: `details/${id}`,
+                query: { page },
+              }
+        }
         onClick={handleDetailsClick}
       >
         show details

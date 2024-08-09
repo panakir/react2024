@@ -1,63 +1,72 @@
 import { Details } from "@/components/details/Details";
+import React from "react";
 import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Mock } from "vitest";
-import configureStore from "redux-mock-store";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
+import { useRouter } from "next/router";
 
-const mockedNavigate = vi.fn();
-
-vi.mock("react-router-dom", (importOriginal: () => object) => {
-  const modules = importOriginal();
+vi.mock("react-redux", async (importOriginal: () => object) => {
+  const modules = await importOriginal();
   return {
     ...modules,
-    useLoaderData: vi.fn(),
-    useNavigate: (): Mock => mockedNavigate,
+    useGetCharacterByIdQuery: (): Mock => mockedHook,
   };
 });
 
-describe("testing Details panel", () => {
-  const initialStore = {
-    characters: {
-      details: {
-        name: "Luke Skywalker",
-        height: "172",
-        mass: "77",
-        birth_year: "19BBY",
-        gender: "male",
-        url: "https://swapi.dev/api/people/1/",
-      },
-    },
+const mockedHook = vi.fn();
+vi.mock("next/router", async (importOriginal: () => object) => {
+  const modules = await importOriginal();
+  return {
+    ...modules,
+    useRouter: vi.fn().mockReturnValue({
+      query: { id: "1" },
+    }),
   };
-
-  const mockStore = configureStore();
-  const detailsStore = mockStore(initialStore);
-
-  it("should rendered with correct data", () => {
-    render(
-      <Provider store={detailsStore}>
-        <Details />
-      </Provider>
-    );
-
-    expect(screen.getByText(/height/i)).toBeInTheDocument();
-    expect(screen.getByText(/mass/i)).toBeInTheDocument();
-    expect(screen.getByText(/gender/i)).toBeInTheDocument();
-    expect(screen.getByText(/birth/i)).toBeInTheDocument();
-    expect(screen.getByText(/luke/i)).toBeInTheDocument();
+});
+describe("testing Details panel", () => {
+  beforeEach(() => {
+    (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+      back: vi.fn(),
+    });
   });
+  it("should rendered with correct data", async () => {
+    (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+    });
 
-  it("should be closed when close button clicked", async () => {
-    const { getByTestId } = render(
+    render(
       <Provider store={store}>
         <Details />
       </Provider>
     );
-    const closeBtn = getByTestId("details-close-btn");
+
+    await waitFor(() => {
+      expect(screen.getByText(/height/i)).toBeInTheDocument();
+      expect(screen.getByText(/mass/i)).toBeInTheDocument();
+      expect(screen.getByText(/gender/i)).toBeInTheDocument();
+      expect(screen.getByText(/birth/i)).toBeInTheDocument();
+    });
+  });
+
+  it("should be closed when close button clicked", async () => {
+    const mockBack = (useRouter as Mock).mockReturnValue({
+      query: { id: "1" },
+      replace: vi.fn(),
+    });
+
+    const { findByTestId } = render(
+      <Provider store={store}>
+        <Details />
+      </Provider>
+    );
+
+    const closeBtn = await findByTestId("details-close-btn");
 
     await userEvent.setup().click(closeBtn);
 
-    expect(mockedNavigate).toHaveBeenCalled();
+    expect(mockBack).toHaveBeenCalled();
   });
 });

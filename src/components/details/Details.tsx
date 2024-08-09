@@ -1,26 +1,30 @@
 import React from "react";
 import styles from "./details.module.scss";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useGetCharacterByIdQuery } from "@/store/api/swapiAPi";
+import { Loader } from "../elements/loader/Loader";
+import { useRouter } from "next/router";
 
 export const Details = (): React.ReactNode => {
-  const navigate = useNavigate();
-  const character = useSelector((state: RootState) => state.characters.details);
-  const { name, height, birth_year, gender, mass } = character;
+  const router = useRouter();
+
+  const { data: character, isLoading } = useGetCharacterByIdQuery(
+    router.query.id as string
+  );
 
   const handleCloseBtn = (): void => {
-    navigate("..");
+    router.replace("/");
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className={`${styles.details} details`}>
       <div className={styles.info}>
-        <h2 className={styles.title}>{name}</h2>
-        <p className={styles.text}>height: {height} </p>
-        <p className={styles.text}>mass: {mass}</p>
-        <p className={styles.text}>gender: {gender}</p>
-        <p className={styles.text}>birth year: {birth_year}</p>
+        <h2 className={styles.title}>{character?.name}</h2>
+        <p className={styles.text}>height: {character?.height} </p>
+        <p className={styles.text}>mass: {character?.mass}</p>
+        <p className={styles.text}>gender: {character?.gender}</p>
+        <p className={styles.text}>birth year: {character?.birth_year}</p>
       </div>
       <div
         data-testid="details-close-btn"

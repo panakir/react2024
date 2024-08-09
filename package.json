@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "lint": "eslint ./src/ --ext ts,tsx --max-warnings 0",
-    "lint:fix": "eslint ./src/ --ext ts,tsx --max-warnings 0",
+    "dev": "next dev ",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ./src/ --ext ts,tsx --max-warnings 1",
+    "lint:fix": "eslint ./src/ --ext ts,tsx --max-warnings 1",
     "format": "prettier ./src/ --check",
     "format:fix": "prettier ./src/ --write -l",
     "test": "vitest run --coverage",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
+    "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2"

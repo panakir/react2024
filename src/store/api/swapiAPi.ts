@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const swapiApi = createApi({
   reducerPath: "swapi",
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (builder) => ({
     getCharacters: builder.query<
       ResponseFromApi,
@@ -17,5 +17,5 @@ const swapiApi = createApi({
   }),
 });
 
-export const { useGetCharactersQuery } = swapiApi;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } = swapiApi;
 export default swapiApi;

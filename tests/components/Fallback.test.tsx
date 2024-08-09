@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Fallback } from "../../src/components/layouts/errorBoundary/Fallback";
 import { useThemeContext } from "@/hooks/useThemeContext";

@@ -5,7 +5,7 @@ export const Loader = (): React.ReactNode => {
   return (
     <div className={styles.loader}>
       <img
-        src="../images/loader.gif"
+        src="/images/loader.gif"
         alt="Loader image"
       />
       <p>loading...</p>
