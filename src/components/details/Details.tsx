@@ -12,7 +12,7 @@ export const Details = (): React.ReactNode => {
   );
 
   const handleCloseBtn = (): void => {
-    router.back();
+    router.replace("/");
   };
 
   return isLoading ? (

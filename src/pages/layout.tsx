@@ -1,7 +1,7 @@
 import { Header } from "@/components/layouts/header/Header";
 
 import { Footer } from "@/components/layouts/footer/Footer";
-import { Main } from "@/components/layouts/main/Main";
+import { ErrorBoundary } from "@/components/layouts/errorBoundary/ErrorBoundary";
 const Layout = ({
   children,
 }: {
@@ -9,10 +9,11 @@ const Layout = ({
 }): React.ReactNode => {
   return (
     <>
-      <Header />
-      <Main />
-      {children}
-      <Footer />
+      <ErrorBoundary fallback={<h1>Fail</h1>}>
+        <Header />
+        {children}
+        <Footer />
+      </ErrorBoundary>
     </>
   );
 };

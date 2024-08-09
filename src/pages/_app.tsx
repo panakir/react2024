@@ -7,16 +7,13 @@ import { AppProps } from "next/app";
 
 const MyApp = ({ Component, pageProps }: AppProps): React.ReactNode => {
   return (
-    <>
-      <Provider store={store}>
-        <ThemeProvider>
-          <Layout>
-            <Component {...pageProps} />
-            {/* {children} */}
-          </Layout>
-        </ThemeProvider>
-      </Provider>
-    </>
+    <ThemeProvider>
+      <Layout>
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </Layout>
+    </ThemeProvider>
   );
 };
 

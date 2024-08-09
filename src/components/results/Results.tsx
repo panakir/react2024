@@ -4,12 +4,14 @@ import { CharacterCard } from "../characterCard/CharacterCard";
 import styles from "./results.module.scss";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { Details } from "../details/Details";
 
 type Props = {
   result: Character[];
+  detailsData: Character | null;
 };
 
-export const Results = ({ result }: Props): React.ReactNode => {
+export const Results = ({ result, detailsData }: Props): React.ReactNode => {
   const params = useParams();
   const router = useRouter();
   const handleCloseDetails = (): void => {
@@ -38,6 +40,7 @@ export const Results = ({ result }: Props): React.ReactNode => {
           />
         ))}
       </div>
+      {detailsData ? <Details /> : null}
     </div>
   );
 };

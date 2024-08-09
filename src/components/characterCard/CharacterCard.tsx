@@ -12,19 +12,12 @@ type Props = {
   character: Character;
 };
 
-const getCharacterId = (url: string): string => {
-  const splitUrl = url.split("/").reverse();
-  const [, id] = splitUrl;
-  return id;
-};
-
 export const CharacterCard = ({ character }: Props): React.ReactNode => {
   const dispatch = useDispatch();
   const selectedItems = useSelector((state: RootState) => state.selectItem);
   const { page, query } = useSelector((state: RootState) => state.search);
   const { theme } = useThemeContext();
-  const { name, gender, birth_year, url } = character;
-  const id = getCharacterId(url);
+  const { name, gender, birth_year } = character;
 
   const handleSelectItem = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -41,7 +34,7 @@ export const CharacterCard = ({ character }: Props): React.ReactNode => {
   };
 
   const isSelected = selectedItems.some((item) => item.url === character.url);
-
+  const [, id] = character.url.split("/").reverse();
   return (
     <div className={styles.card}>
       <label
