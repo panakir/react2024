@@ -22,7 +22,7 @@ const Page = async ({
 }): Promise<React.ReactElement> => {
   const { page, search } = searchParams;
 
-  const data = await getStaticProps(page, search ?? "");
+  const data = await getStaticProps(page ?? 1, search ?? "");
 
   return (
     <>
