@@ -1,3 +1,4 @@
+import React from "react";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/main.scss";
 import { store } from "@/store/store";

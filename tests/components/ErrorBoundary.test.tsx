@@ -24,7 +24,7 @@ describe("ErrorBoundary", () => {
     expect(screen.getByTestId("child")).toBeInTheDocument();
   });
 
-  it("should render fallback component when an error is thrown", () => {
+  it("should render fallback component when an error is thrown", async () => {
     render(
       <ThemeProvider>
         <ErrorBoundary fallback={<Fallback />}>
@@ -33,6 +33,7 @@ describe("ErrorBoundary", () => {
       </ThemeProvider>
     );
 
+    expect(ProblematicComponent).toThrowError();
     expect(screen.getByText(/oops/i)).toBeInTheDocument();
   });
 });

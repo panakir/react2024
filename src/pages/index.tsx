@@ -1,3 +1,4 @@
+import React from "react";
 import { initialFetch } from "@/api/api";
 import { Main } from "@/components/layouts/main/Main";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next/types";
