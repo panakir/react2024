@@ -17,8 +17,11 @@ In final task  will be working on creating a light-weight versions of Postman an
 - SCSS  
 
 ## Scripts 
-- start: Run dev-server
-- dev: Create bundle on development mode
-- prod: Create bundle on production mode
+- dev: run devServer
+- build: Create bundle on production mode
+- preview: start preview production mode bundle 
 - lint: For running the lint command.
+- lint:fix:  For running the lint command anв fix error.
+- format: For running Prettier's --check command.
 - format:fix: For running Prettier's --write command.
+- prepare: husky init 
