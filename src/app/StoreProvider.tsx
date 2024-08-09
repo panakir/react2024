@@ -1,5 +1,6 @@
 "use client";
-import { useRef, type PropsWithChildren } from "react";
+
+import React, { useRef, type PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 
 import { makeStore, type AppStore } from "@/store/store";

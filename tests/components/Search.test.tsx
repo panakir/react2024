@@ -1,9 +1,11 @@
 import React from "react";
-import { describe, expect, it, Mock, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Search } from "../../src/components/search/Search";
 import { useThemeContext } from "@/hooks/useThemeContext";
+
+import { Mock } from "vitest";
+import StoreProvider from "@/app/StoreProvider";
 
 const user = userEvent.setup();
 
@@ -31,7 +33,11 @@ describe("testing Search component", () => {
   });
 
   it("should save the entered value to the local storage when search button clicked", async () => {
-    render(<Search />);
+    render(
+      <StoreProvider>
+        <Search />
+      </StoreProvider>
+    );
     const button = screen.getByText(/search/i);
     await user.click(button);
 
@@ -39,7 +45,11 @@ describe("testing Search component", () => {
   });
 
   it("should rendered with search button", () => {
-    render(<Search />);
+    render(
+      <StoreProvider>
+        <Search />
+      </StoreProvider>
+    );
 
     const searchButton = screen.getByRole("button", { name: /search/i });
 
@@ -47,7 +57,11 @@ describe("testing Search component", () => {
   });
 
   it("should rendered with Throw Error button", () => {
-    render(<Search />);
+    render(
+      <StoreProvider>
+        <Search />
+      </StoreProvider>
+    );
 
     const throwErrorButton = screen.getByRole("button", { name: /throw/i });
 
@@ -55,7 +69,11 @@ describe("testing Search component", () => {
   });
 
   it("should rendered with search input area with default value", () => {
-    render(<Search />);
+    render(
+      <StoreProvider>
+        <Search />
+      </StoreProvider>
+    );
 
     const searchInput = screen.getByDisplayValue(
       localStorage.getItem("searchTerm") ?? ""

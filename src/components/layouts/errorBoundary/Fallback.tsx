@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { Button } from "@/components/elements/button/Button";
 import styles from "./fallback.module.scss";
 import { config } from "./fallback.config";

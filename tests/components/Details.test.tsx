@@ -3,9 +3,11 @@ import React from "react";
 import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Mock } from "vitest";
-import { store } from "@/store/store";
+import { useParams, useRouter } from "next/navigation";
+import StoreProvider from "@/app/StoreProvider";
 import { Provider } from "react-redux";
-import { useRouter } from "next/router";
+
+const mockedHook = vi.fn();
 
 vi.mock("react-redux", async (importOriginal: () => object) => {
   const modules = await importOriginal();
@@ -15,16 +17,13 @@ vi.mock("react-redux", async (importOriginal: () => object) => {
   };
 });
 
-const mockedHook = vi.fn();
-vi.mock("next/router", async (importOriginal: () => object) => {
-  const modules = await importOriginal();
-  return {
-    ...modules,
-    useRouter: vi.fn().mockReturnValue({
-      query: { id: "1" },
-    }),
-  };
-});
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn().mockReturnValue({
+    query: { id: "1" },
+  }),
+  useParams: vi.fn(),
+}));
+
 describe("testing Details panel", () => {
   beforeEach(() => {
     (useRouter as Mock).mockReturnValue({
@@ -38,9 +37,9 @@ describe("testing Details panel", () => {
     });
 
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Details />
-      </Provider>
+      </StoreProvider>
     );
 
     await waitFor(() => {
@@ -54,13 +53,13 @@ describe("testing Details panel", () => {
   it("should be closed when close button clicked", async () => {
     const mockBack = (useRouter as Mock).mockReturnValue({
       query: { id: "1" },
-      replace: vi.fn(),
+      back: vi.fn(),
     });
 
     const { findByTestId } = render(
-      <Provider store={store}>
+      <StoreProvider>
         <Details />
-      </Provider>
+      </StoreProvider>
     );
 
     const closeBtn = await findByTestId("details-close-btn");

@@ -1,19 +1,19 @@
 import React from "react";
 import { Main } from "@/components/layouts/main/Main";
 import { useThemeContext } from "@/hooks/useThemeContext";
-import { store } from "@/store/store";
 import { render, screen, waitFor } from "@testing-library/react";
-import { Provider } from "react-redux";
 import { Mock } from "vitest";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { mockResponse } from "../mocks/ResponseApiMock";
+import StoreProvider from "@/app/StoreProvider";
 
 vi.mock("@/hooks/useThemeContext", () => ({
   useThemeContext: vi.fn(),
 }));
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: vi.fn(),
+  useParams: vi.fn(),
 }));
 
 describe("testing Main component", () => {
@@ -28,9 +28,9 @@ describe("testing Main component", () => {
 
   it("should rendered with search component", () => {
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Main data={mockResponse} />
-      </Provider>
+      </StoreProvider>
     );
     const button = screen.getByRole("button", { name: /search/i });
     expect(button).toBeInTheDocument();
@@ -38,9 +38,9 @@ describe("testing Main component", () => {
 
   it("should rendered with Results after loader", () => {
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Main data={mockResponse} />
-      </Provider>
+      </StoreProvider>
     );
 
     waitFor(async () => {
@@ -51,9 +51,9 @@ describe("testing Main component", () => {
 
   it("should rendered with Pagination components", async () => {
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Main data={mockResponse} />
-      </Provider>
+      </StoreProvider>
     );
     const pagination = await screen.findByTestId("pagination");
 
