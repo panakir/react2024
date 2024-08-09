@@ -1,9 +1,10 @@
+import { BASE_URL } from "@/shared/const";
 import { Character, ResponseFromApi } from "@/shared/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const swapiApi = createApi({
   reducerPath: "swapi",
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getCharacters: builder.query<
       ResponseFromApi,
