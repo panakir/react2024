@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Button } from "../elements/button/Button";
 import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
 import styles from "./search.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePage, updateQuery } from "@/store/slices/searchSlice";
 import { getDataFromLocalStorage } from "@/utils/localStorage";
+import { RootState } from "@/store/store";
 
 export const Search = (): React.ReactNode => {
   const dispatch = useDispatch();
+  const { query } = useSelector((state: RootState) => state.search);
 
   const [searchTerm, setSearchTerm] = useState(
     getDataFromLocalStorage("searchTerm")
@@ -29,7 +31,7 @@ export const Search = (): React.ReactNode => {
         type="text"
         name="searchField"
         id="searchField"
-        value={searchTerm}
+        defaultValue={query}
         placeholder="Please, type your request here"
         onChange={handleInputChange}
       />
