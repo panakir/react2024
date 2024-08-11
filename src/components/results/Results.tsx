@@ -2,13 +2,15 @@ import React from "react";
 import { Character } from "@/shared/types";
 import { CharacterCard } from "../characterCard/CharacterCard";
 import styles from "./results.module.scss";
-import { Outlet, useParams, useNavigate } from "@remix-run/react";
+import { useParams, useNavigate } from "@remix-run/react";
+import { Details } from "../details/Details";
 
 type Props = {
   result: Character[];
+  details: Character;
 };
 
-export const Results = ({ result }: Props): React.ReactNode => {
+export const Results = ({ result, details }: Props): React.ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ export const Results = ({ result }: Props): React.ReactNode => {
           />
         ))}
       </div>
-      <Outlet />
+      {details ? <Details /> : null}
     </div>
   );
 };

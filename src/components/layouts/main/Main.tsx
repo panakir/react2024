@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "@remix-run/react";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Pagination } from "@/components/pagination/Pagination";
 import { Results } from "@/components/results/Results";
@@ -8,12 +7,14 @@ import { Character, ResponseFromApi } from "@/shared/types";
 import { Flyout } from "@/components/flyout/Flyout";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useSearchParams } from "@remix-run/react";
 
 type MainPageProps = {
   data: ResponseFromApi;
+  detailsData?: Character;
 };
 
-export const Main = ({ data }: MainPageProps): React.ReactNode => {
+export const Main = ({ data, detailsData }: MainPageProps): React.ReactNode => {
   const query = useSelector((state: RootState) => state.search.query);
   const page = useSelector((state: RootState) => state.search.page);
 
@@ -21,7 +22,7 @@ export const Main = ({ data }: MainPageProps): React.ReactNode => {
   const [searchResult, setSearchResult] = useState<Character[]>([]);
   const [qtyCharacters, setQtyCharacters] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [params, setParams] = useSearchParams();
 
   useEffect(() => {
     if (data) {
@@ -30,14 +31,13 @@ export const Main = ({ data }: MainPageProps): React.ReactNode => {
       setQtyCharacters(count);
       setCurrentPage(+page);
     }
-    return (): void => {
-      if (query) {
-        searchParams.set("search", query);
-      }
-      searchParams.set("page", page);
-      setSearchParams(searchParams);
-    };
-  }, [currentPage, data, page, query, searchParams, setSearchParams]);
+  }, [currentPage, data, page]);
+
+  useEffect(() => {
+    query ? params.set("search", query) : params.delete("search");
+    params.set("page", page);
+    setParams(params);
+  }, [page, query]);
 
   return (
     <main className={theme}>
@@ -46,7 +46,10 @@ export const Main = ({ data }: MainPageProps): React.ReactNode => {
         currentPage={currentPage}
       />
       <Search />
-      <Results result={searchResult} />
+      <Results
+        result={searchResult}
+        details={detailsData}
+      />
       <Flyout />
     </main>
   );

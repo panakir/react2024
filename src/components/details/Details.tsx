@@ -10,7 +10,7 @@ export const Details = (): React.ReactNode => {
   const { name, height, birth_year, gender, mass } = character;
 
   const handleCloseBtn = (): void => {
-    navigate(-1);
+    navigate(-2);
   };
 
   return (
