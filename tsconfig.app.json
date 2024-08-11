@@ -29,5 +29,5 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true
   },
-  "include": ["src", "tests/**/*"]
+  "include": ["src", "tests/**/*", "app/constants.ts"]
 }
