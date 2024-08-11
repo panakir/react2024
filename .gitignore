@@ -11,6 +11,8 @@ node_modules
 coverage
 dist
 dist-ssr
+build
+.cache
 *.local
 
 # Editor directories and files
