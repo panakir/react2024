@@ -21,7 +21,7 @@ module.exports = {
     "no-inline-comments": "error",
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true },
+      { allowConstantExport: true, allowExportNames: ["loader"] },
     ],
     "no-duplicate-imports": ["error", { includeExports: true }],
     "no-empty": "error",
