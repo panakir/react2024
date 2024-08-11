@@ -4,12 +4,13 @@ import { ErrorButton } from "../layouts/errorBoundary/ErrorButton";
 import styles from "./search.module.scss";
 import { useDispatch } from "react-redux";
 import { updatePage, updateQuery } from "@/store/slices/searchSlice";
+import { getDataFromLocalStorage } from "@/utils/localStorage";
 
 export const Search = (): React.ReactNode => {
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState(
-    localStorage.getItem("searchTerm") || ""
+    getDataFromLocalStorage("searchTerm")
   );
 
   const handleInputChange = (event: { target: { value: string } }): void => {
