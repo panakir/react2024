@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./details.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@remix-run/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
@@ -10,7 +10,7 @@ export const Details = (): React.ReactNode => {
   const { name, height, birth_year, gender, mass } = character;
 
   const handleCloseBtn = (): void => {
-    navigate("..");
+    navigate(-1);
   };
 
   return (

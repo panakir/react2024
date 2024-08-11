@@ -1,17 +1,21 @@
 import React from "react";
 import { Character } from "@/shared/types";
-import { Outlet } from "react-router-dom";
 import { CharacterCard } from "../characterCard/CharacterCard";
 import styles from "./results.module.scss";
+import { Outlet, useParams, useNavigate } from "@remix-run/react";
 
 type Props = {
   result: Character[];
-  closeOutlet: () => void;
 };
 
-export const Results = ({ result, closeOutlet }: Props): React.ReactNode => {
+export const Results = ({ result }: Props): React.ReactNode => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const handleCloseOutlet = (): void => {
-    closeOutlet();
+    if (params.id) {
+      navigate(-1);
+    }
   };
 
   if (!result.length) {

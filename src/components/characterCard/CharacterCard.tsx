@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./characterCard.module.scss";
 import { Character } from "@/shared/types";
-import { Link } from "react-router-dom";
+import { Link } from "@remix-run/react";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "@/store/slices/selectItemsSlice";

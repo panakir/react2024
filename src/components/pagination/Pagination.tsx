@@ -4,7 +4,6 @@ import { Button } from "../elements/button/Button";
 import styles from "./pagination.module.scss";
 import { useDispatch } from "react-redux";
 import { updatePage } from "@/store/slices/searchSlice";
-import { useNavigate } from "react-router-dom";
 
 const PAGE_LIMIT = 10;
 
@@ -20,7 +19,6 @@ const calculateQtyPaginationButton = (
 
 export const Pagination = (props: Props): React.ReactNode => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { theme } = useThemeContext();
   const { qtyCharacters, currentPage } = props;
 
@@ -31,18 +29,15 @@ export const Pagination = (props: Props): React.ReactNode => {
 
   const handlePrevious = (): void => {
     const page = (currentPage - 1).toString();
-    navigate(`../page/${page}`, { replace: true });
     dispatch(updatePage(page));
   };
 
   const handleNext = (): void => {
     const page = (currentPage + 1).toString();
-    navigate(`../page/${page}`, { replace: true });
     dispatch(updatePage(page));
   };
 
   const handleSelected = (page: number): void => {
-    navigate(`../page/${page}`, { replace: true });
     dispatch(updatePage(`${page}`));
   };
 
