@@ -1,6 +1,5 @@
 import { Character } from "../../src/shared/types";
 
-
 export const mockResultsList: Character[] = [
   {
     name: "Luke Skywalker",
@@ -8,7 +7,7 @@ export const mockResultsList: Character[] = [
     mass: "77",
     birth_year: "19BBY",
     gender: "male",
-    url: "https://swapi.dev/api/people/1/"
+    url: "https://swapi.dev/api/people/1/",
   },
   {
     name: "C-3PO",
@@ -16,7 +15,7 @@ export const mockResultsList: Character[] = [
     mass: "75",
     birth_year: "112BBY",
     gender: "n/a",
-    url: "https://swapi.dev/api/people/2/"
+    url: "https://swapi.dev/api/people/2/",
   },
   {
     name: "R2-D2",
@@ -24,7 +23,7 @@ export const mockResultsList: Character[] = [
     mass: "32",
     birth_year: "33BBY",
     gender: "n/a",
-    url: "https://swapi.dev/api/people/3/"
+    url: "https://swapi.dev/api/people/3/",
   },
   {
     name: "Darth Vader",
@@ -32,7 +31,7 @@ export const mockResultsList: Character[] = [
     mass: "136",
     birth_year: "41.9BBY",
     gender: "male",
-    url: "https://swapi.dev/api/people/4/"
+    url: "https://swapi.dev/api/people/4/",
   },
   {
     name: "Leia Organa",
@@ -40,7 +39,7 @@ export const mockResultsList: Character[] = [
     mass: "49",
     birth_year: "19BBY",
     gender: "female",
-    url: "https://swapi.dev/api/people/5/"
+    url: "https://swapi.dev/api/people/5/",
   },
   {
     name: "Owen Lars",
@@ -48,7 +47,7 @@ export const mockResultsList: Character[] = [
     mass: "120",
     birth_year: "52BBY",
     gender: "male",
-    url: "https://swapi.dev/api/people/6/"
+    url: "https://swapi.dev/api/people/6/",
   },
   {
     name: "Beru Whitesun lars",
@@ -56,7 +55,7 @@ export const mockResultsList: Character[] = [
     mass: "75",
     birth_year: "47BBY",
     gender: "female",
-    url: "https://swapi.dev/api/people/7/"
+    url: "https://swapi.dev/api/people/7/",
   },
   {
     name: "R5-D4",
@@ -64,7 +63,7 @@ export const mockResultsList: Character[] = [
     mass: "32",
     birth_year: "unknown",
     gender: "n/a",
-    url: "https://swapi.dev/api/people/8/"
+    url: "https://swapi.dev/api/people/8/",
   },
   {
     name: "Biggs Darklighter",
@@ -72,7 +71,7 @@ export const mockResultsList: Character[] = [
     mass: "84",
     birth_year: "24BBY",
     gender: "male",
-    url: "https://swapi.dev/api/people/9/"
+    url: "https://swapi.dev/api/people/9/",
   },
   {
     name: "Obi-Wan Kenobi",
@@ -80,6 +79,6 @@ export const mockResultsList: Character[] = [
     mass: "77",
     birth_year: "57BBY",
     gender: "male",
-    url: "https://swapi.dev/api/people/10/"
-  }
-]
+    url: "https://swapi.dev/api/people/10/",
+  },
+];

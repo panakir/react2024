@@ -1,17 +1,16 @@
-import { defineConfig } from 'vitest/config'
-import * as path from 'path'
+import { defineConfig } from "vitest/config";
+import * as path from "path";
 
 export default defineConfig({
   test: {
-    environment: 'jsdom',
-    deps:
-    {
-      interopDefault: true
+    environment: "jsdom",
+    deps: {
+      interopDefault: true,
     },
     globals: true,
-    setupFiles: 'tests/setup.ts'
+    setupFiles: "tests/setup.ts",
   },
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
-  }
-})
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+  },
+});
