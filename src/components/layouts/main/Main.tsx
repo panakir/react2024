@@ -45,11 +45,14 @@ export const Main = ({ data, detailsData }: MainPageProps): React.ReactNode => {
         qtyCharacters={qtyCharacters}
         currentPage={currentPage}
       />
+
       <Search />
+
       <Results
         result={searchResult}
-        details={detailsData}
+        details={detailsData ? detailsData : null}
       />
+
       <Flyout />
     </main>
   );

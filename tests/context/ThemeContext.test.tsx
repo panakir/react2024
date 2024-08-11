@@ -1,11 +1,8 @@
-// ThemeProvider.test.tsx
-
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { ThemeContext, ThemeProvider } from "@/context/ThemeContext";
 import userEvent from "@testing-library/user-event";
 
-// Mock child component to consume the context
 const MockChildComponent = (): React.ReactElement | null => {
   const context = React.useContext(ThemeContext);
 

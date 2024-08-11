@@ -7,7 +7,7 @@ import { Details } from "../details/Details";
 
 type Props = {
   result: Character[];
-  details: Character;
+  details: Character | null;
 };
 
 export const Results = ({ result, details }: Props): React.ReactNode => {

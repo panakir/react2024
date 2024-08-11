@@ -1,19 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import { mockResultsList } from "../mocks/ResultsMocks";
-import { BrowserRouter } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
-import { mockResponse } from "../mocks/ResponseApiMock";
 import { Results } from "../../src/components/results/Results";
 import { useThemeContext } from "@/hooks/useThemeContext";
 import { Mock } from "vitest";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 
-const user = userEvent.setup();
+const NUMBER_OF_CARDS = 10;
 
 vi.mock("@/hooks/useThemeContext", () => ({
   useThemeContext: vi.fn(),
 }));
+
+vi.mock("@remix-run/react", async (importOriginal: () => object) => {
+  const modules = await importOriginal();
+  return {
+    ...modules,
+    useNavigate: vi.fn(),
+    useParams: vi.fn(),
+  };
+});
 
 describe("testing Results component", () => {
   beforeEach(() => {
@@ -23,14 +30,13 @@ describe("testing Results component", () => {
     };
     (useThemeContext as Mock).mockReturnValue(mockContext);
   });
-  const NUMBER_OF_CARDS = 10;
 
   it("should display message if not result", () => {
     render(
       <Provider store={store}>
         <Results
           result={[]}
-          closeOutlet={vi.fn()}
+          details={null}
         />
       </Provider>
     );
@@ -41,37 +47,17 @@ describe("testing Results component", () => {
   it("should renders the specified number of cards", () => {
     const props = {
       result: mockResultsList,
-      closeOutlet: vi.fn(),
+      details: null,
     };
     const { container } = render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <Results {...props} />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>
     );
     const links = container.querySelectorAll("a");
 
     expect(links.length).toBe(NUMBER_OF_CARDS);
-  });
-
-  it("should", async () => {
-    const mockedOnClick = vi.fn();
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Results
-            result={mockResponse.results}
-            closeOutlet={mockedOnClick}
-          />
-        </BrowserRouter>
-      </Provider>
-    );
-
-    const link = screen.getByRole("link");
-
-    await user.click(link);
-
-    expect(mockedOnClick).toHaveBeenCalledOnce();
   });
 });

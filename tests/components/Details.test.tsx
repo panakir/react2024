@@ -6,16 +6,10 @@ import configureStore from "redux-mock-store";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
 
-const mockedNavigate = vi.fn();
-
-vi.mock("react-router-dom", (importOriginal: () => object) => {
-  const modules = importOriginal();
-  return {
-    ...modules,
-    useLoaderData: vi.fn(),
-    useNavigate: (): Mock => mockedNavigate,
-  };
-});
+const navigateMock = vi.fn();
+vi.mock("@remix-run/react", () => ({
+  useNavigate: (): Mock => navigateMock,
+}));
 
 describe("testing Details panel", () => {
   const initialStore = {
@@ -54,10 +48,11 @@ describe("testing Details panel", () => {
         <Details />
       </Provider>
     );
+
     const closeBtn = getByTestId("details-close-btn");
 
     await userEvent.setup().click(closeBtn);
 
-    expect(mockedNavigate).toHaveBeenCalled();
+    expect(navigateMock).toHaveBeenCalled();
   });
 });
