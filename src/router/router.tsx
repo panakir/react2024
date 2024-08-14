@@ -1,6 +1,6 @@
 import { App } from "@/App";
-import { ControlledForm } from "@/pages/controlledForm/ControlledForm";
-import { UncontrolledForm } from "@/pages/uncontrolledForm/uncontrolledForm";
+import { ControlledFormPage } from "@/pages/controlledForm/ControlledFormPage";
+import { UncontrolledFormPage } from "@/pages/uncontrolledForm/UncontrolledFormPage";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -10,11 +10,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/controlled-form",
-        element: <ControlledForm />,
+        element: <ControlledFormPage />,
       },
       {
         path: "/uncontrolled-form",
-        element: <UncontrolledForm />,
+        element: <UncontrolledFormPage />,
       },
     ],
   },

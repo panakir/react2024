@@ -1,0 +1,19 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 1.5em;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: underline;
+  text-align: center;
+}
