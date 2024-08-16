@@ -1,5 +1,4 @@
 import { boolean, mixed, number, object, ref, string } from "yup";
-import { Image } from "@/core/types";
 import { isValidType, isValidSize } from "./isValid";
 
 export const formSchema = object().shape({
@@ -29,12 +28,16 @@ export const formSchema = object().shape({
     .oneOf([ref("password")], "Passwords must match"),
   gender: string().oneOf(["man", "woman", "other"]).required(),
   accept: boolean().required().oneOf([true], "This field is required"),
-  uploadImage: mixed<Image>()
-    .required("Required")
-    .test("is-valid-type", " Allowed image`s types: jpg, jpeg, png", (value) =>
-      isValidType(value.name)
+  uploadImage: mixed<File>()
+    .required()
+    .test(
+      "is-valid-type",
+      " Allowed image`s types: jpg, jpeg, png",
+      (file) => file && isValidType(file.name)
     )
-    .test("is-valid-size", "Allow images with size less than 2Mb", (file) =>
-      isValidSize(file.size)
+    .test(
+      "is-valid-size",
+      "Allow images with size less than 100kb",
+      (file) => file && isValidSize(file.size)
     ),
 });

@@ -1,18 +1,24 @@
 import styles from "./form.module.scss";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import { FormFields } from "@/core/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InvalidField } from "../elements/invalidFormField/invalidField";
 import { formSchema } from "@/utils/validateForm/validateSchema";
+import { useDispatch } from "react-redux";
+import { addForm } from "@/store/slices/formSlice";
+import { FormDataType, FormFieldsType } from "@/core/types";
+import { useNavigate } from "react-router-dom";
+import { convertToBase64 } from "@/utils/convertToBase64";
 
 export const ReactHookForm = (): React.ReactNode => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     setValue,
     clearErrors,
     formState: { errors, isValid },
-  } = useForm<FormFields>({
+  } = useForm<FormFieldsType>({
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
@@ -30,11 +36,17 @@ export const ReactHookForm = (): React.ReactNode => {
     }
   };
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    return data;
+  const onSubmit: SubmitHandler<FormFieldsType> = async (data) => {
+    const image = data.uploadImage;
+    if (image instanceof File) {
+      const base64 = await convertToBase64(image);
+      const form: FormDataType = { ...data, uploadImage: base64 };
+      dispatch(addForm(form));
+      navigate("/");
+    }
   };
 
-  const onSubmitError: SubmitErrorHandler<FormFields> = (data) => {
+  const onSubmitError: SubmitErrorHandler<FormFieldsType> = (data) => {
     return data;
   };
 
@@ -65,7 +77,6 @@ export const ReactHookForm = (): React.ReactNode => {
           type="number"
           id="age"
           min={1}
-          defaultValue={1}
         />
         {errors.age ? (
           <InvalidField message={errors.age.message ?? ""} />
@@ -103,6 +114,7 @@ export const ReactHookForm = (): React.ReactNode => {
           type="password"
           id="confirmPassword"
           autoComplete="password"
+          defaultValue="qQ1!1111"
         />
         {errors.passwordConfirm ? (
           <InvalidField message={errors.passwordConfirm.message ?? ""} />
