@@ -7,15 +7,13 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [
-      {
-        path: "/controlled-form",
-        element: <ControlledFormPage />,
-      },
-      {
-        path: "/uncontrolled-form",
-        element: <UncontrolledFormPage />,
-      },
-    ],
+  },
+  {
+    path: "/controlled-form",
+    element: <ControlledFormPage />,
+  },
+  {
+    path: "/uncontrolled-form",
+    element: <UncontrolledFormPage />,
   },
 ]);
