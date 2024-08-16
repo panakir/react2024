@@ -5,6 +5,7 @@
   justify-content: center;
   height: 100vh;
   padding: 0 1.5em;
+  background-color: lightgrey;
 }
 
 .main {
@@ -16,4 +17,35 @@ h2 {
   font-weight: 700;
   text-decoration: underline;
   text-align: center;
+}
+
+input,
+button,
+select {
+  border: 1px solid;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button {
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &:not(:disabled):hover {
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  transition: all 0.3s;
+  &:hover {
+    opacity: 0.6;
+  }
 }

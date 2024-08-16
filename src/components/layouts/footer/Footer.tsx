@@ -7,12 +7,7 @@ export const Footer = (): React.ReactNode => {
   return (
     <footer className={styles.footer}>
       <div className={styles.info}>
-        <a
-          className={styles.link}
-          href="https://github.com/panakir"
-        >
-          &copy;{nickname},
-        </a>
+        <a href="https://github.com/panakir">&copy;{nickname},</a>
         <span>{year}</span>
       </div>
       <a

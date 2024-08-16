@@ -10,14 +10,8 @@
   gap: 1em;
   padding: 1em;
   a {
-    text-decoration: none;
-    color: inherit;
     text-transform: uppercase;
     font-weight: 700;
     text-shadow: 0 0 1em currentColor;
-    transition: all 0.3s;
-    &:hover {
-      opacity: 0.8;
-    }
   }
 }
