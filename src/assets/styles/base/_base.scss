@@ -49,3 +49,13 @@ a {
     opacity: 0.6;
   }
 }
+
+div {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
