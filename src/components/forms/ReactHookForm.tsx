@@ -35,14 +35,11 @@ export const ReactHookForm = (): React.ReactNode => {
       clearErrors("uploadImage");
     }
     const fileList = event.target.files;
-    if (fileList) {
-      const [file] = fileList;
-      setValue("uploadImage", file);
-    }
+    if (fileList) setValue("uploadImage", fileList);
   };
 
   const onSubmit: SubmitHandler<FormFieldsType> = async (data) => {
-    const image = data.uploadImage;
+    const [image] = data.uploadImage;
     if (image instanceof File) {
       const base64 = await convertToBase64(image);
       const form: FormDataType = { ...data, uploadImage: base64 };
@@ -131,7 +128,6 @@ export const ReactHookForm = (): React.ReactNode => {
           type="password"
           id="confirmPassword"
           autoComplete="password"
-          defaultValue="qQ1!1111"
         />
         {errors.passwordConfirm ? (
           <InvalidField message={errors.passwordConfirm.message ?? ""} />
