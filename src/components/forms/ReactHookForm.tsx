@@ -8,10 +8,15 @@ import { addForm } from "@/store/slices/formSlice";
 import { FormDataType, FormFieldsType } from "@/core/types";
 import { useNavigate } from "react-router-dom";
 import { convertToBase64 } from "@/utils/convertToBase64";
+import { PasswordChecker } from "../elements/invalidFormField/passwordChecker/PasswordChecker";
+import { checkPassword } from "@/utils/checkPassword";
+import { useState } from "react";
 
 export const ReactHookForm = (): React.ReactNode => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [strength, setStrength] = useState("");
+  const [color, setColor] = useState("");
   const {
     register,
     handleSubmit,
@@ -48,6 +53,13 @@ export const ReactHookForm = (): React.ReactNode => {
 
   const onSubmitError: SubmitErrorHandler<FormFieldsType> = (data) => {
     return data;
+  };
+
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { strength, color } = checkPassword(event.target.value);
+
+    setStrength(strength);
+    setColor(color);
   };
 
   return (
@@ -101,6 +113,11 @@ export const ReactHookForm = (): React.ReactNode => {
           className={styles.form__input}
           type="password"
           autoComplete="password"
+          onChange={(event) => handlePassword(event)}
+        />
+        <PasswordChecker
+          strength={strength}
+          color={color}
         />
         {errors.password ? (
           <InvalidField message={errors.password.message ?? ""} />
