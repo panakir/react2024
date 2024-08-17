@@ -28,16 +28,22 @@ export const formSchema = object().shape({
     .oneOf([ref("password")], "Passwords must match"),
   gender: string().oneOf(["man", "woman", "other"]).required(),
   accept: boolean().required().oneOf([true], "This field is required"),
-  uploadImage: mixed<File>()
+  uploadImage: mixed<FileList>()
     .required()
     .test(
       "is-valid-type",
       " Allowed image`s types: jpg, jpeg, png",
-      (file) => file && isValidType(file.name)
+      (files) => {
+        if (files.length !== 1) {
+          return false;
+        }
+        return files && isValidType(files[0].name);
+      }
     )
-    .test(
-      "is-valid-size",
-      "Allow images with size less than 100kb",
-      (file) => file && isValidSize(file.size)
-    ),
+    .test("is-valid-size", "Allow images with size less than 1Mb", (files) => {
+      if (files.length !== 1) {
+        return false;
+      }
+      return files && isValidSize(files[0].size);
+    }),
 });
