@@ -147,8 +147,8 @@ export const UncontrolledForm = (): React.ReactNode => {
           ref={confirmPasswordRef}
           autoComplete="new-password"
         />
-        {errors.confirmPassword ? (
-          <InvalidField message={errors.confirmPassword} />
+        {errors.passwordConfirm ? (
+          <InvalidField message={errors.passwordConfirm} />
         ) : null}
       </div>
       <div className={`${styles.form__field} ${styles.form__field_gender}`}>
