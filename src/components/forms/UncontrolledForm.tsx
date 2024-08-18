@@ -8,9 +8,13 @@ import { addForm } from "@/store/slices/formSlice";
 import { FormDataType } from "@/core/types";
 import { convertToBase64 } from "@/utils/convertToBase64";
 import { useNavigate } from "react-router-dom";
+import { checkPassword } from "@/utils/checkPassword";
+import { PasswordChecker } from "../elements/passwordChecker/PasswordChecker";
 
 export const UncontrolledForm = (): React.ReactNode => {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [color, setColor] = useState("");
+  const [strength, setStrength] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,6 +71,12 @@ export const UncontrolledForm = (): React.ReactNode => {
     }
   };
 
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { strength, color } = checkPassword(event.target.value);
+    setStrength(strength);
+    setColor(color);
+  };
+
   return (
     <form
       className={styles.form}
@@ -119,6 +129,12 @@ export const UncontrolledForm = (): React.ReactNode => {
           type="password"
           id="password"
           ref={passwordRef}
+          onChange={handlePassword}
+          autoComplete="new-password"
+        />
+        <PasswordChecker
+          strength={strength}
+          color={color}
         />
         {errors.password ? <InvalidField message={errors.password} /> : null}
       </div>
@@ -129,6 +145,7 @@ export const UncontrolledForm = (): React.ReactNode => {
           type="password"
           id="confirmPassword"
           ref={confirmPasswordRef}
+          autoComplete="new-password"
         />
         {errors.confirmPassword ? (
           <InvalidField message={errors.confirmPassword} />

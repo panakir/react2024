@@ -8,7 +8,7 @@ import { addForm } from "@/store/slices/formSlice";
 import { FormDataType, FormFieldsType } from "@/core/types";
 import { useNavigate } from "react-router-dom";
 import { convertToBase64 } from "@/utils/convertToBase64";
-import { PasswordChecker } from "../elements/invalidFormField/passwordChecker/PasswordChecker";
+import { PasswordChecker } from "../elements/passwordChecker/PasswordChecker";
 import { checkPassword } from "@/utils/checkPassword";
 import { RootState } from "@/store/store";
 import React, { useState } from "react";
