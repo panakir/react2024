@@ -16,6 +16,7 @@ export const UncontrolledForm = (): React.ReactNode => {
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
@@ -31,6 +32,7 @@ export const UncontrolledForm = (): React.ReactNode => {
     const form = {
       name: nameRef.current?.value,
       age: ageRef.current?.value,
+      country: countryRef.current?.value,
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
       passwordConfirm: confirmPasswordRef.current?.value,
@@ -45,7 +47,6 @@ export const UncontrolledForm = (): React.ReactNode => {
       if (uploadImage && uploadImage[0] instanceof File) {
         const base64 = await convertToBase64(uploadImage[0]);
         const data: FormDataType = { ...form, uploadImage: base64 };
-
         dispatch(addForm(data));
         navigate("/");
       }
@@ -91,6 +92,16 @@ export const UncontrolledForm = (): React.ReactNode => {
         />
         {errors.age ? <InvalidField message={errors.age} /> : null}
       </div>
+      <div className={`${styles.form__field} ${styles.form__field_age}`}>
+        <label htmlFor="country">Country:</label>
+        <input
+          className={styles.form__input}
+          type="text"
+          id="country"
+          ref={countryRef}
+        />
+      </div>
+      {errors.country ? <InvalidField message={errors.country} /> : null}
       <div className={`${styles.form__field} ${styles.form__field_email}`}>
         <label htmlFor="email">email: </label>
         <input
