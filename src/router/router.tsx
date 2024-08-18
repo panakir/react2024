@@ -7,13 +7,20 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <h2>Something went wrong!</h2>,
   },
   {
     path: "/controlled-form",
     element: <ControlledFormPage />,
+    errorElement: <h2>Something went wrong!</h2>,
   },
   {
     path: "/uncontrolled-form",
     element: <UncontrolledFormPage />,
+    errorElement: <h2>Something went wrong!</h2>,
+  },
+  {
+    path: "*",
+    element: <h2>This page is not found</h2>,
   },
 ]);
