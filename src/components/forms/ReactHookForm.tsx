@@ -3,18 +3,24 @@ import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InvalidField } from "../elements/invalidFormField/invalidField";
 import { formSchema } from "@/utils/validateForm/validateSchema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addForm } from "@/store/slices/formSlice";
 import { FormDataType, FormFieldsType } from "@/core/types";
 import { useNavigate } from "react-router-dom";
 import { convertToBase64 } from "@/utils/convertToBase64";
 import { PasswordChecker } from "../elements/invalidFormField/passwordChecker/PasswordChecker";
 import { checkPassword } from "@/utils/checkPassword";
-import { useState } from "react";
+import { RootState } from "@/store/store";
+import React, { useState } from "react";
+import { AutoCompleteComponent } from "../AutoCompleteComponent/AutoCompleteComponent";
 
 export const ReactHookForm = (): React.ReactNode => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [country, setCountry] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [matchCountries, setMatchCountries] = useState<string[] | null>(null);
+  const countries = useSelector((state: RootState) => state.country);
   const [strength, setStrength] = useState("");
   const [color, setColor] = useState("");
   const {
@@ -27,6 +33,29 @@ export const ReactHookForm = (): React.ReactNode => {
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
+
+  const handleCountry = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setCountry(event.target.value);
+    const match = countries.filter((item) =>
+      item.toLowerCase().includes(country.toLowerCase())
+    );
+    setMatchCountries(match);
+    setIsVisible(match.length !== 0 ? true : false);
+  };
+
+  const handleSelectItem = (event: React.MouseEvent<HTMLElement>): void => {
+    const { target } = event;
+    if (target instanceof HTMLParagraphElement) {
+      setCountry(target.innerText);
+    }
+    setIsVisible(!isVisible);
+  };
+
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { strength, color } = checkPassword(event.target.value);
+    setStrength(strength);
+    setColor(color);
+  };
 
   const handleInputFile = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -50,13 +79,6 @@ export const ReactHookForm = (): React.ReactNode => {
 
   const onSubmitError: SubmitErrorHandler<FormFieldsType> = (data) => {
     return data;
-  };
-
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { strength, color } = checkPassword(event.target.value);
-
-    setStrength(strength);
-    setColor(color);
   };
 
   return (
@@ -91,6 +113,24 @@ export const ReactHookForm = (): React.ReactNode => {
           <InvalidField message={errors.age.message ?? ""} />
         ) : null}
       </div>
+      <div className={`${styles.form__field} ${styles.form__field_country}`}>
+        <label htmlFor="country">country: </label>
+        <input
+          {...register("country", { onChange: handleCountry })}
+          className={styles.form__input}
+          type="text"
+          id="country"
+          value={country}
+        />
+        {errors.country?.message ? (
+          <InvalidField message={errors.country.message} />
+        ) : null}
+        <AutoCompleteComponent
+          onSelect={handleSelectItem}
+          visible={isVisible}
+          countries={matchCountries}
+        />
+      </div>
       <div className={`${styles.form__field} ${styles.form__field_email}`}>
         <label htmlFor="email">email: </label>
         <input
@@ -106,11 +146,10 @@ export const ReactHookForm = (): React.ReactNode => {
       <div className={`${styles.form__field} ${styles.form__field_password}`}>
         <label htmlFor="password">password: </label>
         <input
-          {...register("password")}
+          {...register("password", { onChange: handlePassword })}
           className={styles.form__input}
           type="password"
           autoComplete="password"
-          onChange={(event) => handlePassword(event)}
         />
         <PasswordChecker
           strength={strength}

@@ -2,7 +2,7 @@ import { CardPropsType } from "@/core/types";
 import styles from "./card.module.scss";
 
 export const Card = ({ form, last }: CardPropsType): React.ReactNode => {
-  const { name, age, email, gender, uploadImage, accept } = form;
+  const { name, age, email, gender, uploadImage, accept, country } = form;
 
   return (
     <div className={`${styles.card} ${last ? styles.last : ""}`}>
@@ -16,6 +16,7 @@ export const Card = ({ form, last }: CardPropsType): React.ReactNode => {
         <div className={styles.card__text}>
           <h3>Name: {name}</h3>
           <p>Email: {email}</p>
+          <p>Country: {country}</p>
         </div>
       </header>
       <div>

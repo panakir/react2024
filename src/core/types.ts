@@ -7,6 +7,7 @@ export type FormFieldsType = {
   gender: NonNullable<"man" | "woman" | "other" | undefined>;
   accept: NonNullable<boolean | undefined>;
   uploadImage: FileList;
+  country: string;
 };
 
 export type FormDataType = {
@@ -18,6 +19,7 @@ export type FormDataType = {
   uploadImage?: string;
   gender?: string;
   accept?: boolean;
+  country?: string;
 };
 
 export type CardPropsType = {

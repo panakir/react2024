@@ -46,4 +46,5 @@ export const formSchema = object().shape({
       }
       return files && isValidSize(files[0].size);
     }),
+  country: string().required(),
 });
