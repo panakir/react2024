@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.navigation {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  a {
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 0 0 1em currentColor;
+  }
+}
